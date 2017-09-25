@@ -33,10 +33,7 @@ export class AddItemModalPage {
   private aiBizItems: any;
   private itemsLoaded: boolean = false;
   private siCategory: string
-  private // dReadOnly: boolean = true;
-  private isNewItem: boolean = false;
   private bizProfile: any;
-  private aiMyItems: Array<{index: number, description: string, stock: any, price: any, editFlag: boolean, editPrice: boolean}>;
   private myItemKey: any;
   private myItemStock: any;
   private myItemQtyBF: any;
