@@ -33,7 +33,6 @@ export class IncomeStatementPage {
   private dMonthStr: any;
   private dWeekStr: any;
   private dYearStr: any;
-  private overlayHidden: boolean;
   private isAdmin: boolean;
   private profileState: boolean;
   private expenseTxn: any;
@@ -66,8 +65,6 @@ export class IncomeStatementPage {
   }
 
   ionViewDidLoad() {
-
-    //this.overlayHidden = true;
 
     this.miniStmt = true;
     this.cashRpt = false;
