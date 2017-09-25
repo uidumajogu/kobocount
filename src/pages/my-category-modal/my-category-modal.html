@@ -1,0 +1,48 @@
+<ion-content class="modal-page">
+
+  <ion-card>
+    <ion-card-header color="light" style="background-color: #0081ff; text-align: center; font-weight: bold; text-transform: uppercase">
+          Edit Category
+
+      <ion-fab #fab right (click)="closeEditCategoryModal()">
+        <button ion-fab mini color="danger3"><ion-icon name="close-circle"></ion-icon></button>
+      </ion-fab>
+
+    </ion-card-header>
+    <br>
+    <ion-card-content>
+
+      <ion-row>
+        <ion-col col-4 style="text-align: right">
+          <ion-label style="font-size: 12px; font-weight: bold" no-padding>Category</ion-label>
+        </ion-col>
+        <ion-col col-8>
+          <div class="input-wrapper">
+            <ion-input style="font-size: 12px" no-padding type="text" placeholder="e.g Shoes" [(ngModel)]="newCategory"></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+    <div style="background-color: white">
+      <ion-row style="border-top: solid 1px #0081ff">
+        <ion-col style="text-align: center; border-right: solid 1px #0081ff">
+          <button ion-button icon-left clear small (click)="deleteCategory()">
+            <ion-icon style="font-size: 30px; color: #FD6B72" name="close"></ion-icon>
+            <div style="font-size: 10px; color: #FD6B72">
+              Delete</div>
+          </button>
+        </ion-col>
+        <ion-col style="text-align: center;">
+          <button ion-button icon-left clear small (click)="editCategory()" >
+            <ion-icon style="font-size: 30px" name="checkmark"></ion-icon>
+            <div style="font-size: 10px">Edit</div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+  </ion-card>
+
+</ion-content>
+

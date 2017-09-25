@@ -1,0 +1,84 @@
+
+<ion-content padding-left padding-right class="modal-page">
+
+  <ion-navbar>
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col>
+          <ion-title style="text-align: center; font-size: 12px">Add General Dicount</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+  <ion-grid no-padding>
+    <ion-row style="background-color: #0081ff ">
+      <ion-col style="border-right: solid white;">
+        <button ion-button block clear color="light" (click)="closeTotalDiscountModal()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="arrow-back" item-left></ion-icon>
+          BACK
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block clear color="light" (click)="submitTotalDiscountModal()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="checkmark" item-left></ion-icon>
+          DONE
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-content no-padding style="color: #444444">
+    <br>
+
+
+    <ion-list style="border: solid 1px #cccccc" radio-group [(ngModel)]="totalDiscountType">
+      <h3>Select General Discount Type</h3>
+      <hr>
+      <ion-item>
+        <ion-label>No Discount</ion-label>
+        <ion-radio value="No Discount" (click)="closeTotalDiscountModal()"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Flat Amount</ion-label>
+        <ion-radio value="Flat Amount" (click)="activateDiscountAmountInput()"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Percentage%</ion-label>
+        <ion-radio value="Percentage%" (click)="activateDiscountAmountInput()"></ion-radio>
+      </ion-item>
+    </ion-list>
+
+    <br>
+    <ion-grid *ngIf="discountTypeSelected">
+      <ion-row>
+        <ion-col col-7>
+          <ion-label>Enter {{totalDiscountType}}:</ion-label>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col col-5>
+          <div class="tdInput-wrapper">
+            <ion-input no-padding type="number" placeholder="0" [(ngModel)]="totalDiscountAmount"></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="discountTypeSelected">
+      <ion-row>
+        <ion-col col-7>
+          <ion-label style="font-weight: bold" *ngIf="tDiscountPercentage">General Discount: {{totalDiscountAmount}}{{tDiscountTypeSymbol}}</ion-label>
+          <ion-label style="font-weight: bold" *ngIf="!tDiscountPercentage">General Discount:</ion-label>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col col-5>
+          <ion-label style="font-weight: bold" *ngIf="tDiscountPercentage">₦{{(totalDiscountAmount * (saleSubTotalTDP/100)) | anyToNumber | number:'1.2'}}</ion-label>
+          <ion-label style="font-weight: bold" *ngIf="!tDiscountPercentage">₦{{totalDiscountAmount | anyToNumber | number:'1.2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-content>
+</ion-content>

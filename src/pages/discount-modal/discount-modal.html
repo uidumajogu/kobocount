@@ -1,0 +1,23 @@
+
+<div class="modal-page">
+    <ion-card style="margin-top: 50%">
+      <ion-card-header style="font-weight: bold; text-align: center; border-bottom: solid 2px #0081ff; color: dimgray">
+        Select Discount Option
+      </ion-card-header>
+      <hr>
+    <ion-list radio-group [(ngModel)]="myDiscountType">
+      <ion-item>
+        <ion-label>No Discount</ion-label>
+        <ion-radio value="No Discount" (click)="submitDiscountModal()"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Flat Amount</ion-label>
+        <ion-radio value="Flat Amount" (click)="submitDiscountModal()"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Percentage%</ion-label>
+        <ion-radio value="Percentage%" (click)="submitDiscountModal()"></ion-radio>
+      </ion-item>
+    </ion-list>
+    </ion-card>
+</div>

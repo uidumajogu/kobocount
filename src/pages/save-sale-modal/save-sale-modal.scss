@@ -1,0 +1,23 @@
+page-save-sale-modal {
+
+  .modal-page {
+    padding: 30px !important;
+    background: rgba(0,0,0,0.7);
+    //background: rgba(0,0,225,0.8);
+  }
+
+  .formModal {
+    background-color: transparent !important;
+    max-height: 40%;
+    top: 30%;
+    bottom: 30%;
+    border-radius: 5px;
+    border: solid 2px #fff;
+    vertical-align: middle !important;
+  }
+
+  .no-scroll .scroll-content{
+    overflow: hidden;
+  }
+
+}

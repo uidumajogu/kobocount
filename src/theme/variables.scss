@@ -1,0 +1,104 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/v2/theming/
+$font-path: "../assets/fonts";
+
+@import "ionic.globals";
+
+
+// Shared Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass variables found in Ionic's source scss files.
+// To view all the possible Ionic variables, see:
+// http://ionicframework.com/docs/v2/theming/overriding-ionic-variables/
+
+
+
+
+// Named Color Variables
+// --------------------------------------------------
+// Named colors makes it easy to reuse colors on various components.
+// It's highly recommended to change the default colors
+// to match your app's branding. Ionic uses a Sass map of
+// colors so you can add, rename and remove colors as needed.
+// The "primary" color is the only required color in the map.
+
+$colors: (
+  primary:    #0000ff,
+  secondary:  #32db64,
+  danger:     #f53d3d,
+  light:      #fff,
+  dark:       #333,
+  p-light:    #03a9f4,
+  p-grey:     darkgrey,
+  d-grey:     dimgrey,
+  r-blue:     royalblue,
+  p-blue:     #3333CC,
+  s-blue:     #B0C8E4,
+  sk-blue:    #76A3E1,
+  primary1:   #2E77D8,
+  danger1:    #f37271,
+  secondary1: #45b91f,
+  light1:     #8995A5,
+  light2:     #D8DFE8,
+  danger2:    #FB5260,
+  primary2:   #0081FF,
+  primary2d:  #2979FF,
+  light3:     #CEE0FF,
+  light0:     #FDFEFF,
+  danger3:    #FD6B72,
+  primary3:   #4da7ff,
+  b-light:    #d8ecff,
+  danger1b:   #fee6e7
+
+);
+
+
+
+// App iOS Variables
+// --------------------------------------------------
+// iOS only Sass variables can go here
+
+
+
+
+// App Material Design Variables
+// --------------------------------------------------
+// Material Design only Sass variables can go here
+
+
+
+
+// App Windows Variables
+// --------------------------------------------------
+// Windows only Sass variables can go here
+
+
+
+
+// App Theme
+// --------------------------------------------------
+// Ionic apps can have different themes applied, which can
+// then be future customized. This import comes last
+// so that the above variables are used and Ionic's
+// default are overridden.
+
+@import "ionic.theme.default";
+
+
+// Ionicons
+// --------------------------------------------------
+// The premium icon font for Ionic. For more info, please see:
+// http://ionicframework.com/docs/v2/ionicons/
+
+@import "ionic.ionicons";
+
+
+// Fonts
+// --------------------------------------------------
+
+@import "roboto";
+@import "noto-sans";
+
+
+

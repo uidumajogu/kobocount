@@ -1,0 +1,181 @@
+
+<ion-content class="modal-page">
+
+  <ion-navbar>
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col>
+          <ion-title style="text-align: center; font-size: 12px">Payment Details</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+  <ion-grid no-padding>
+    <ion-row style="background-color: #0081ff">
+      <ion-col style="border-right: solid white;">
+        <button ion-button block clear color="light" (click)="closePaymentModal()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="arrow-back" item-left></ion-icon>
+          BACK
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block clear color="light" (click)="submitPaymentModal()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="checkmark" item-left></ion-icon>
+          DONE
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-content style="color: #444444; min-height: 300px;">
+    <br>
+<div style="padding: 0px 3px 0px 3px" class="gen">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-7>
+          <ion-label>Sale Date:</ion-label>
+        </ion-col>
+        <ion-col col-5>
+          <!--<input type="date" placeholder="DD-MM-YYYY" value={{salePaymentDate}} [(ngModel)]="salePaymentDate">-->
+          <ion-label style="color: #4da7ff">{{salePaymentDate | date:'dd-MMM-yyyy'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <hr style="background-color: lavender">
+
+    <br>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-7>
+          <ion-label>Fully Paid:</ion-label>
+        </ion-col>
+        <ion-col col-5>
+          <ion-toggle color="primary2" style="float: left; padding-left: 1px;" [(ngModel)]="toggleFullyPaidValue" (ionChange)="calcFullyPaid()"></ion-toggle>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="!toggleFullyPaidValue">
+      <ion-row>
+        <ion-col col-7>
+          <ion-label>Partial Payment:</ion-label>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col col-5>
+          <div class="tdInput-wrapper">
+            <ion-input no-padding type="number" placeholder="0" [(ngModel)]="salePartialPayment" (input)="calcPartiallyPaid()"></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</div>
+
+    <br>
+    <div *ngIf="salePayment" class="gen" style="padding: 1px ; border: dotted 2px #0081FF; margin: 2px 10px 0px 10px; background-color: aliceblue; border-radius: 5px">
+      <p style="text-align: center; font-size: 14px; font-weight: bold; color: #007aff; margin: 0px">Select the Mode of Payment</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label style="color: #03a9f4; font-weight: bold; font-size: 13px; text-align: center">
+            <ion-radio color="primary2" style="margin: 0px 15px 0px 15px" checked={{toggleSalePaidByCash}} (click)="evaluatePaymentModeCash()">
+            </ion-radio>Cash
+            </ion-label>
+            </ion-col>
+          <ion-col>
+            <ion-label style="color: #03a9f4; font-weight: bold; font-size: 13px; text-align: center">
+              <ion-radio color="primary2" style="margin: 0px 15px 0px 15px" checked={{toggleSalePaidByPOS}} (click)="evaluatePaymentModePOS()">
+              </ion-radio>POS
+            </ion-label>
+          </ion-col>
+            <ion-col>
+            <ion-label style="color: #03a9f4; font-weight: bold; font-size: 13px; text-align: center">
+            <ion-radio color="pimary2" style="margin: 0px 15px 0px 15px" checked={{toggleSalePaidByTransfer}} (click)="evaluatePaymentModeTransfer()">
+            </ion-radio>Transfer
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <div class="pymt-box">
+      <br><br><br>
+      <div style="background-color: #888; padding: 3px">
+        <p style="font-weight: bold; color: white; font-size: 12px; padding: 0px !important; margin: 0px !important;">Payment Details</p>
+      </div>
+      <div style="padding: 5px">
+        <ion-grid>
+          <ion-row style="font-weight: bold">
+            <ion-col col-3>
+              DATE
+            </ion-col>
+            <ion-col col-4 style="text-align: center">
+              MODE
+            </ion-col>
+            <ion-col col-5 style="text-align: right">
+              AMOUNT
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <hr>
+
+        <ion-grid *ngFor="let pymt of paymentDetails">
+          <ion-row>
+            <ion-col col-3>
+              {{pymt.paymentDate}}
+            </ion-col>
+            <ion-col col-4 style="text-align: center">
+              {{pymt.pMode}}
+            </ion-col>
+            <ion-col col-5 style="text-align: right">
+              ₦{{pymt.pAmount | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <hr>
+        <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+          </ion-col>
+          <ion-col col-3 style="text-align: right; font-weight: bold">
+            Total Paid
+          </ion-col>
+          <ion-col col-4 style="text-align: right; font-weight: bold">
+            ₦{{pAmountTotal | number:'1.2'}}
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+
+        <br>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-5>
+            </ion-col>
+            <ion-col col-3 style="text-align: right; font-weight: bold">
+              Total Amount
+            </ion-col>
+            <ion-col col-4 style="text-align: right; font-weight: bold">
+              ₦{{totalSaleAmount | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row style="color: #0081FF">
+            <ion-col col-5>
+            </ion-col>
+            <ion-col col-3 style="text-align: right; font-weight: bold">
+              Balance Due
+            </ion-col>
+            <ion-col col-4 style="text-align: right; font-weight: bold">
+              ₦{{(totalSaleAmount - pAmountTotal) | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-content>
+

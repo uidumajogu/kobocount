@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-navbar color="primary2">
+    <ion-row>
+      <ion-col col-2>
+        <button ion-button menuToggle style="margin-top: 10px">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <h5 style="color: white">Goods/Services</h5>
+      </ion-col>
+      <ion-col col-2>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+<ion-content no-padding>
+  <div *ngIf="pageLoaded">
+  <div *ngIf="!bizItems" class="center">
+
+      <img src="img/empty-folder.png" alt="" style="opacity: 0.5; height: 30%; width: 30%">
+      <h6>No Items</h6>
+  </div>
+  </div>
+
+
+  <div *ngIf="bizItems">
+    <ion-list no-padding no-margin *ngFor="let category of bizItems">
+
+      <div style="background-color: whitesmoke; text-transform: uppercase; padding: 30px 0px 3px 10px; margin: 0px;
+                        color: #8995A5; font-size: 10px; border-bottom: solid 1px #eeeffe" (click)="editCategory(category.$key, category)">
+          <p style="margin: 0px; padding: 0px">{{category.$key}}</p>
+      </div>
+
+
+      <ion-item *ngFor="let item of category | ObjToArr" padding-left="20px" no-margin (click)="editMyItem(category[item], item, category)"
+                style="background-color: #fff">
+        <div *ngIf="category[item].hasItems">
+          <ion-row>
+            <ion-col col-6 style="font-size: 12px; font-weight: bold; text-transform: capitalize; color: #0081ff">
+              {{category[item].description}}
+            </ion-col>
+            <ion-col col-6 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #777">
+              ₦{{category[item].unitPrice | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-6 style="font-size: 8px;">
+              {{category[item].stock}} in Stock
+            </ion-col>
+            <ion-col col-6>
+            </ion-col>
+          </ion-row>
+        </div>
+
+      <div *ngIf="!category[item].hasItems">
+      <ion-row>
+          <ion-col style="font-weight: bold; font-size: 12px; color: darkgrey; text-align: center">
+            Add Items to this category
+          </ion-col>
+        </ion-row>
+      </div>
+     </ion-item>
+
+  </ion-list>
+  </div>
+
+  <!--<ion-fab #fab bottom right (click)="hideOverlay()">-->
+    <!--<button ion-fab mini color="primary2"><ion-icon name="menu"></ion-icon></button>-->
+
+    <!--<ion-fab-list side="top">-->
+
+      <!--<button ion-fab color="primary2" (click)="goToHomePage(fab)">-->
+        <!--<ion-icon name="home"></ion-icon>-->
+        <!--<div class="label" style="color: #2979FF">Home</div>-->
+      <!--</button>-->
+
+      <!--<button ion-fab color="light1" (click)="goToTxnsRepPage(fab)">-->
+        <!--<ion-icon name="apps"></ion-icon>-->
+        <!--<div class="label" style="color: #8995A5">Transactions</div>-->
+      <!--</button>-->
+
+      <!--<button ion-fab color="danger1" (click)="goToExpensePage(fab)">-->
+        <!--<ion-icon name="add-circle"></ion-icon>-->
+        <!--<div class="label" style="color: #f37271">Add Expense</div>-->
+      <!--</button>-->
+
+      <!--<button ion-fab color="secondary1" (click)="goToSalesPage(fab)">-->
+        <!--<ion-icon name="add-circle"></ion-icon>-->
+        <!--<div class="label" style="color: #45b91f">Add Sale</div>-->
+      <!--</button>-->
+    <!--</ion-fab-list>-->
+  <!--</ion-fab>-->
+
+  <ion-fab #fab top right edge (click)="addMyNewItem()">
+    <button ion-fab mini color="primary3"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+
+
+  <!--<div class="my-overlay" padding [hidden]="overlayHidden">-->
+    <!--<button ion-button small clear></button>-->
+  <!--</div>-->
+
+
+</ion-content>

@@ -1,0 +1,23 @@
+
+<ion-content padding class="modal-page">
+  <div style="background-color: #0081FF !important;">
+    <br>
+    <h4 style="text-align: center; color: white">Select Your Business Type</h4>
+    <br>
+    <ion-content class="mc formModal">
+      <ion-list radio-group [(ngModel)]="myBType">
+      <ion-item *ngFor="let bType of bTypes; let i = index">
+        <ion-label>{{ bType }}</ion-label>
+        <ion-radio *ngIf="i===0" value="{{bType}}" checked (click)="submitBizTypeModal()"></ion-radio>
+        <ion-radio *ngIf="i!=0" value="{{bType}}" (click)="submitBizTypeModal()"></ion-radio>
+      </ion-item>
+        <ion-item>
+          <ion-label>Not in the List</ion-label>
+          <ion-radio value="Not in the list" (click)="submitBizTypeModal()"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+    <br>
+  </div>
+</ion-content>
+

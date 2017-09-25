@@ -1,0 +1,49 @@
+
+<ion-header color="primary2">
+  <ion-navbar transparent>
+  <button ion-button no-padding icon-only clear start (click)="closeETModal()">
+    <ion-icon name="arrow-round-back" no-padding no-margin color="light"></ion-icon>
+  </button>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+  <ion-fab #fab top center edge>
+    <button ion-fab color="primary3"><ion-icon name="person"></ion-icon></button>
+  </ion-fab>
+
+  <div style="background-color: #d8ecff">
+  <br><br>
+
+        <ion-row>
+          <ion-col style="text-transform: uppercase; font-size: 14px;
+          padding-left: 5px; font-weight: bold; text-align: center; color: #0081ff">
+            {{fullName}}
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col style="font-size: 12px; text-align: center">
+            {{email}}
+          </ion-col>
+        </ion-row>
+
+    <br><br>
+  </div>
+
+  <div style="margin-top: -20px">
+    <ion-row>
+      <ion-col style="padding-left: 5px; padding-right: 5px">
+        <button color="primary3" ion-button small block style="text-transform: none">Reset Password</button>
+      </ion-col>
+      <ion-col *ngIf="admin === false" style="padding-left: 5px; padding-right: 5px">
+        <button *ngIf="active === true" color="light1" ion-button small block style="text-transform: none" (click)="dsblUser()">Disable</button>
+        <button *ngIf="active === false" color="secondary1" ion-button small block style="text-transform: none" (click)="enblUser()">Enable</button>
+      </ion-col>
+      <!--<ion-col style="padding-left: 5px; padding-right: 5px">-->
+        <!--<button color="danger3" ion-button small block style="text-transform: none">Delete</button>-->
+      <!--</ion-col>-->
+    </ion-row>
+  </div>
+</ion-content>

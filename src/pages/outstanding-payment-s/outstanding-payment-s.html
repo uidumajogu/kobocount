@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-navbar color="primary2">
+    <ion-row>
+      <ion-col col-2>
+        <button ion-button menuToggle style="margin-top: 10px">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <h5 style="color: white">Outstanding Payment</h5>
+      </ion-col>
+      <ion-col col-2>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding no-margin>
+
+  <div *ngIf="noOutsPymts" class="center">
+    <img src="img/empty-folder.png" alt="" style="opacity: 0.5; height: 30%; width: 30%">
+    <h6>No Outstanding payments</h6>
+  </div>
+
+  <div *ngIf="!noOutsPymts">
+    <ion-list>
+      <ion-item no-padding style="background-color: #e0e0e0" >
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3 style="font-size: 12px; padding-left: 5px; font-weight: bold; color: #4d4d4d">
+              DATE
+            </ion-col>
+            <ion-col col-4
+                     style="font-size: 12px; padding-left: 5px; font-weight: bold; color: #4d4d4d; text-align: center">
+              CUSTOMER
+            </ion-col>
+            <ion-col col-5 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #4d4d4d">
+              TRANSACTION
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-item *ngFor="let txn of allOutsPymts; let i = index" no-padding (click)="outstxnDetails(txn)"
+                [ngClass]="{'bgColor' :(i % 2 != 0)}">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3 style="font-size: 12px; padding-left: 5px; color: #0081FF">
+              {{txn.Date}}
+            </ion-col>
+            <ion-col col-4
+              style="text-transform: uppercase; font-size: 12px; padding-left: 5px; font-weight: bold; color: #0081FF; text-align: center">
+              {{txn.CustomerName}}
+            </ion-col>
+            <ion-col col-5 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #0081FF">
+              ₦{{txn.UnPaidAmount | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-3 style="font-size: 10px;"
+                     [ngClass]="{'daysCol' : (txn.Date != currentDate)}">
+              <!--<span *ngIf="txn.Date != currentDate" style="font-weight: bold">Age: </span>-->
+              {{txn.Date | differenceInDays: currentDate}}
+            </ion-col>
+            <ion-col col-4 style="font-size: 10px; text-align: center">
+              {{txn.CustomerPhoneNumber}}
+            </ion-col>
+            <ion-col col-5 *ngIf="txn.Type === 'Sale'" col-5 style="font-size: 8px; text-align: right; padding-right: 5px">
+              {{txn.ID}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+    </ion-list>
+  </div>
+
+
+  <ion-fab #fab bottom right edge (click)="hideOverlay()">
+    <button ion-fab mini color="primary3"><ion-icon name="menu"></ion-icon></button>
+
+    <ion-fab-list side="top">
+
+      <button ion-fab color="primary2" (click)="goToHomePage(fab)">
+        <ion-icon name="home"></ion-icon>
+        <div class="label" style="color: #2979FF">Home</div>
+      </button>
+
+      <button ion-fab color="light1" (click)="goToTxnsRepPage(fab)">
+        <ion-icon name="apps"></ion-icon>
+        <div class="label" style="color: #8995A5">Transactions</div>
+      </button>
+
+      <button ion-fab color="danger1" (click)="goToExpensePage(fab)">
+        <ion-icon name="add-circle"></ion-icon>
+        <div class="label" style="color: #f37271">Add Expense</div>
+      </button>
+
+      <button ion-fab color="secondary1" (click)="goToSalesPage(fab)">
+        <ion-icon name="add-circle"></ion-icon>
+        <div class="label" style="color: #45b91f">Add Sale</div>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>
+
+
+<div class="my-overlay" padding [hidden]="overlayHidden">
+  <button ion-button small clear></button>
+</div>
+
+<ion-footer>
+
+  <ion-row>
+    <ion-col style="text-align: center;">
+      <h4 style="color: white !important; margin: 10px 0px 10px 0px; padding: 0px; font-size: 12px; text-align: center">
+        Total Outstanding Payment: <span style="font-weight: bold">₦{{outsPymtsTotal | number:'1.2'}}</span></h4>
+    </ion-col>
+  </ion-row>
+
+</ion-footer>

@@ -1,0 +1,26 @@
+
+<ion-header transparent style="border-bottom: solid 2px #0081ff;">
+  <h6 style="text-align: center; color: #0081ff">SELECT AN ITEM</h6>
+</ion-header>
+<br><br><br>
+
+<ion-content>
+
+  <div *ngFor="let category of myItems">
+    <div style="font-weight: bold;text-transform: uppercase;
+                        color: #6f6f6f; text-align: left; font-size: 8px; background-color: whitesmoke; padding: 15px 0px 2px 10px">
+       <p style="padding: 0px; margin: 0px">{{category.$key}}</p>
+    </div>
+
+      <ion-list>
+        <button ion-item *ngFor="let item of category | ObjToArr" (click)="selectedItem(category[item], item, category.$key)">
+          <p *ngIf="category[item].hasItems" style="color: #0081ff; font-weight: bold; font-size: 12px; text-transform: capitalize">
+            {{category[item].description}}
+            <span style="color: #333; font-weight: normal; font-size: 10px; position: absolute; right: 10%">
+              <span style="font-weight: bold">{{category[item].stock}}</span> in stock</span></p>
+          <p *ngIf="!category[item].hasItems">No Items in this category</p>
+        </button>
+      </ion-list>
+  </div>
+
+</ion-content>

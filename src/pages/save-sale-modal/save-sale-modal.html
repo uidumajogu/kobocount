@@ -1,0 +1,21 @@
+
+<ion-content padding class="modal-page no-scroll">
+
+  <ion-content class="formModal">
+    <ion-fab top right edge>
+      <button ion-fab mini no-margin no-padding color="danger" (click)="closeSaveSaleModal()"><ion-icon name="close"></ion-icon></button>
+    </ion-fab>
+
+    <button ion-button full color="p-light" icon-start style="border-radius: 5px; text-transform: none; margin: 30px 0px 30px 0px" (click)="generateIR()">
+            <ion-icon name="book" style="font-size: 30px; margin-right: 30px;"></ion-icon>
+            Generate {{saleIRTag}}
+    </button>
+
+    <button ion-button full color="secondary" icon-start style="border-radius: 5px; text-transform: none; margin: 50px 0px 30px 0px" (click)="SaveSale()">
+            <ion-icon name="checkmark" style="font-size: 30px; margin-right: 30px;"></ion-icon>
+            Save Sale<p style="color: transparent">...... ...</p>
+    </button>
+
+  </ion-content>
+
+</ion-content>

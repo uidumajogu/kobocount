@@ -1,0 +1,16 @@
+
+<ion-header transparent style="border-bottom: solid 2px #0081ff;">
+    <h6 style="text-align: center; color: #0081ff">SELECT ITEM CATEGORY</h6>
+</ion-header>
+<br><br><br>
+
+<ion-content>
+  <ion-list>
+  <ion-item *ngFor="let category of allMyCat; let i = index" (click)="selectedCategory(category.$key)"
+            [ngClass]="{'bgColor' :(i % 2 != 0)}">
+    <p style="text-transform: capitalize">{{category.$key}}</p>
+  </ion-item>
+
+
+  </ion-list>
+</ion-content>

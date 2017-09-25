@@ -1,0 +1,291 @@
+
+<ion-content class="modal-page">
+  <!--<div style="background-color: #0081FF !important;">-->
+
+    <!--<ion-content class="mc formModal">-->
+
+
+      <div class="invoice-box" id="invoice-page" style="background-color: whitesmoke !important;">
+        <br>
+        <ion-fab bottom center>
+          <button ion-fab mini no-margin no-padding color="danger" (click)="closeTViewModal()"><ion-icon name="close"></ion-icon></button>
+        </ion-fab>
+
+        <p style="text-align: center; font-size: 11px;"
+           [ngClass]="{'saleCol' : (txnType === 'Sale'), 'expCol' : (txnType === 'Expense')}"><span>{{txnType}}</span> on <span>{{txnDate}}</span></p>
+        <h6 style="text-align: center; font-weight: bold"
+            [ngClass]="{'saleCol' : (txnType === 'Sale'), 'expCol' : (txnType === 'Expense')}">ID: {{txnID}}</h6>
+        <hr class="headerHr" [ngClass]="{'saleLineCol' : (txnType === 'Sale'), 'expLineCol' : (txnType === 'Expense')}">
+        <br>
+
+        <!--<hr>-->
+        <!--<ion-grid>-->
+          <!--<ion-row>-->
+            <!--<ion-col>-->
+              <!--<p><strong>Bill to:</strong></p>-->
+              <!--<p style="color: white">.</p>-->
+              <!--<p style="color: #333"><ion-icon style="font-size: 5px; color: #03a9f4" name="person" item-left></ion-icon>: {{customerName}}</p>-->
+              <!--<p><ion-icon style="font-size: 5px; color: #03a9f4" name="mail" item-left></ion-icon>: {{customerEmail}}</p>-->
+              <!--<p><ion-icon style="font-size: 5px; color: #03a9f4" name="call" item-left></ion-icon>: {{customerPhoneNumber}}</p>-->
+              <!--<p style="color: white">.</p>-->
+              <!--<p>{{cdStreet1}} {{cdStreet2}}</p>-->
+              <!--<p>{{cdCity}}</p>-->
+              <!--<p>{{cdState}}</p>-->
+              <!--<p>{{cdCountry}}</p>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+        <!--</ion-grid>-->
+
+        <ion-grid>
+          <ion-row class="heading" style="font-size: 8px">
+            <ion-col col-3 style="text-align: left">
+              DESCRIPTION
+            </ion-col>
+            <ion-col col-1>
+              QTY
+            </ion-col>
+            <ion-col>
+              RATE
+            </ion-col>
+            <ion-col col-2 *ngIf="txnType === 'Sale'">
+              DISCOUNT
+            </ion-col>
+            <ion-col style="text-align: right">
+              AMOUNT
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="gnm" *ngFor="let item of txnItems;">
+          <ion-row class="info">
+            <ion-col col-3 style="text-align: left">
+              {{item.description}}
+            </ion-col>
+            <ion-col col-1>
+              {{item.quantity}}
+            </ion-col>
+            <ion-col col-3>
+              ₦{{item.unitPrice | number:'1.2'}}
+            </ion-col>
+            <ion-col col-2 *ngIf="txnType === 'Sale'">
+              ₦{{item.saleDiscount | number:'1.2'}}
+            </ion-col>
+            <ion-col col-2 *ngIf="txnType === 'Expense'">
+
+            </ion-col>
+            <ion-col col-3 *ngIf="txnType === 'Sale'" style="text-align: right">
+              ₦{{(item.quantity * item.unitPrice) - item.saleDiscount  | number:'1.2'}}
+            </ion-col>
+            <ion-col col-3 *ngIf="txnType === 'Expense'" style="text-align: right">
+              ₦{{(item.quantity * item.unitPrice) | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <hr style="margin: 5px 5px 10px 5px">
+
+        <div *ngIf="txnType === 'Sale'">
+        <ion-grid class="gnm">
+          <ion-row class="totals">
+            <ion-col col-4>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <ion-col col-3>
+              Subtotal
+            </ion-col>
+            <ion-col col-3>
+              ₦{{txnSubTotal | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="gnm">
+          <ion-row class="totals">
+            <ion-col col-4>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <ion-col col-3>
+              Discount
+            </ion-col>
+            <ion-col col-3>
+              ₦{{txnGDiscount | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="gnm">
+          <ion-row class="totals">
+            <ion-col col-4>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <ion-col col-3>
+              Shipping
+            </ion-col>
+            <ion-col col-3>
+              ₦{{txnShippingFee | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="gnm">
+          <ion-row class="totals">
+            <ion-col col-4>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <ion-col col-3>
+              VAT
+            </ion-col>
+            <ion-col col-3>
+              ₦{{txnVAT | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="gnm">
+          <ion-row>
+            <ion-col>
+
+            </ion-col>
+            <ion-col>
+              <hr style="margin: 5px 0px 10px 5px">
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        </div>
+
+        <ion-grid class="gnm">
+          <ion-row class="totals2" [ngClass]="{'saleCol' : (txnType === 'Sale'), 'expCol' : (txnType === 'Expense')}">
+            <ion-col col-4>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <ion-col col-3>
+              Total
+            </ion-col>
+            <ion-col col-3>
+              ₦{{((txnSubTotal - txnGDiscount) + txnShippingFee + txnVAT) | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <div *ngIf="txnType === 'Sale'">
+        <ion-grid class="gnm">
+          <ion-row class="totals2" style="color: #0081FF">
+            <ion-col col-4>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <ion-col col-3>
+              Paid
+            </ion-col>
+            <ion-col col-3>
+              ₦{{txnPaidTotal | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="gnm">
+          <ion-row class="totals2" style="color: #0081FF">
+            <ion-col col-4>
+            </ion-col>
+            <ion-col col-2>
+            </ion-col>
+            <ion-col col-3>
+              Balance Due
+            </ion-col>
+            <ion-col col-3>
+              ₦{{((txnSubTotal - txnGDiscount) + txnShippingFee + txnVAT) - txnPaidTotal | number:'1.2' }}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <!--<ion-grid *ngIf="txnPaidTotal > 0">-->
+          <!--<ion-row class="totals">-->
+            <!--<ion-col col-6>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3>-->
+              <!--Payment Method:-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3>-->
+              <!--{{txnPaymentMode}}-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+        <!--</ion-grid>-->
+        </div>
+
+  <div *ngIf="txnPaidTotal > 0 && txnType === 'Sale'" class="pymt-box">
+    <br><br><br>
+    <div style="background-color: #888; padding: 3px">
+    <p style="font-weight: bold; color: white; font-size: 12px">Payment Details</p>
+    </div>
+        <div style="padding: 5px">
+        <ion-grid>
+          <ion-row style="font-weight: bold">
+            <ion-col col-3>
+              DATE
+            </ion-col>
+            <ion-col col-4 style="text-align: center">
+              MODE
+            </ion-col>
+            <ion-col col-5 style="text-align: right">
+              AMOUNT
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+          <hr>
+
+        <ion-grid *ngFor="let pymt of paidPayments">
+          <ion-row>
+            <ion-col col-3>
+              {{pymt.paymentDate}}
+            </ion-col>
+            <ion-col col-4 style="text-align: center">
+              {{pymt.pMode}}
+            </ion-col>
+            <ion-col col-5 style="text-align: right">
+              ₦{{pymt.pAmount | number:'1.2'}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+          <hr>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-5>
+              </ion-col>
+              <ion-col col-3 style="text-align: right; font-weight: bold">
+                Total Paid
+              </ion-col>
+              <ion-col col-4 style="text-align: right; font-weight: bold">
+                ₦{{txnPaidTotal | number:'1.2'}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+    </div>
+
+
+    <br><br>
+     <div *ngIf="outsTxnPage">
+       <hr class="headerHr" [ngClass]="{'saleLineCol' : (txnType === 'Sale'), 'expLineCol' : (txnType === 'Expense')}">
+       <br>
+        <button ion-button full color="primary2"
+                style="text-transform: none; font-size: 12px; font-weight: bold; text-align: center" (click)="updatePayment()">
+              Update Payment</button>
+     </div>
+
+  </div>
+
+
+<!--</ion-content>-->
+
+<!--</div>-->
+</ion-content>
+
+
+

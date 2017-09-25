@@ -1,0 +1,42 @@
+
+
+<ion-content no-padding class="modal-page">
+
+  <ion-card style="margin-top: 50% !important;">
+    <ion-card-header style="text-align: center; color: white; font-size: 16px; background-color: #03a9f4; font-weight: bold">
+      Signature
+    </ion-card-header>
+    <br>
+
+    <ion-card-content>
+      <signature-pad [options]="signaturePadOptions" (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"></signature-pad>
+      <p *ngIf="notSigned" style="font-size: 10px; text-align: center; color: red">Not Signed</p>
+    </ion-card-content>
+
+    <hr>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <button ion-button full clear color="danger" style="font-size: 13px; text-transform: none" (click)="signCancel()">
+            <ion-icon style="margin-right: 2px;" color="danger" name="arrow-back" item-left></ion-icon>
+            Back
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button full clear color="p-grey" style="font-size: 13px; text-transform: none" (click)="signClear()">
+            <ion-icon style="margin-right: 2px;" color="p-grey" name="close" item-left></ion-icon>
+            Clear
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <button ion-button full clear color="p-light" style="font-size: 13px; text-transform: none" (click)="signComplete()">
+            <ion-icon style="margin-right: 2px;" color="p-light" name="checkmark" item-left></ion-icon>
+            Done
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+  <br>
+
+

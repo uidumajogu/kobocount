@@ -1,0 +1,87 @@
+page-items-and-stock {
+
+  ion-header, ion-navbar {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  .center {
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+    top:50%;
+    transform:translateY(-50%);
+    text-align: center;
+    color: #8f8f8f;
+  }
+
+  .item, .item-inner {
+    border-bottom-color: lavender !important;
+    box-shadow: none !important;
+  }
+
+  .bgColor {
+    background-color: aliceblue;
+  }
+
+  ion-fab {
+
+    button {
+      box-shadow: 0 4px 10px #6b6b6b;
+    }
+
+    ion-fab-list button[ion-fab] {
+      text-align: center;
+      overflow: visible;
+
+      div.label {
+        position: absolute;
+        right: 42px;
+        //background: rgba(248, 248, 248, 1);
+        //background: rgba(2, 2, 2, 1);
+        height: 24px;
+        line-height: 16px;
+        padding-left: 8px;
+        padding-right: 2px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        margin-top: -1px;
+        font-size: 11px;
+        font-weight: bold;
+        //border: solid 1px white;
+        //border-radius: 5px;
+        //box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.14), 0 4px 5px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    .fab {
+      contain: initial;
+    }
+  }
+
+  .my-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 20;
+    top: 0;
+    left: 0;
+  }
+
+  ion-grid, ion-row, ion-col {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  ion-list, ion-item {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+}

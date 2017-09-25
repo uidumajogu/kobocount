@@ -1,0 +1,57 @@
+<ion-content padding class="modal-page">
+
+  <div style="background-color: #0081ff !important;">
+      <h4 style="text-align: center; color: white; padding: 20px 0px 10px 0px">Expense Type</h4>
+    <ion-content class="mc formModal">
+      <ion-fab top left edge>
+        <button ion-fab mini no-margin no-padding color="danger" (click)="closeExpTypeModal()"><ion-icon name="close"></ion-icon></button>
+      </ion-fab>
+      <div *ngIf="!notInList">
+      <ion-list radio-group [(ngModel)]="myExpType">
+        <ion-item *ngFor="let expType of expTypes; let i = index">
+          <ion-label>{{ expType.expenseType }}</ion-label>
+          <ion-radio *ngIf="i===0" value="{{expType.expenseType}}" checked (click)="submitExpTypeModal()"></ion-radio>
+          <ion-radio *ngIf="i!=0" value="{{expType.expenseType}}" (click)="submitExpTypeModal()"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Not in the List</ion-label>
+          <ion-radio value="Not in the list" (click)="activateNotInList()"></ion-radio>
+        </ion-item>
+      </ion-list>
+      </div>
+
+      <div *ngIf="notInList">
+        <br><br><br><br>
+        <form [formGroup]="expenseTypeForm" (submit)="submitExpTypeModal()" novalidate>
+          <ion-item no-lines style="border: solid 1px #03a9f4">
+            <ion-input no-lines placeholder="Enter the type of Expense" formControlName="expType" type="text"
+                       [class.invalid]="!expenseTypeForm.controls.expType.valid && expenseTypeForm.controls.expType.dirty" [(ngModel)]="myExpType"></ion-input>
+          </ion-item>
+          <ion-item no-lines class="error-message"
+                    *ngIf="!expenseTypeForm.controls.expType.valid  && expenseTypeForm.controls.expType.dirty">
+            <p style="color: red">Please enter the type of expense</p>
+          </ion-item>
+          <br><br>
+          <ion-grid no-padding>
+            <ion-row style="background-color: #4da7ff ">
+              <ion-col style="border-right: solid #03a9f4;">
+                <button ion-button block clear color="light" (click)="deactivateNotInList()">
+                  <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="close" item-left></ion-icon>
+                  CANCEL
+                </button>
+              </ion-col>
+              <ion-col>
+                <button [disabled]="!expenseTypeForm.valid" ion-button block clear color="light" type="submit">
+                  <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="checkmark" item-left></ion-icon>
+                  OKAY
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+
+    </ion-content>
+    <br>
+    </div>
+</ion-content>

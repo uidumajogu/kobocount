@@ -1,0 +1,22 @@
+page-item-category-pop-over {
+  background-color: ghostwhite !important;
+
+  ion-content {
+    color: #6b6b6b !important;
+
+    ion-list, ion-item {
+      padding: 0px !important;
+      margin: 0px !important;
+    }
+
+    p{
+      padding-left: 20px !important;
+      font-weight: bold;
+    }
+  }
+
+  .bgColor {
+    background-color: #fbfbfb;
+  }
+
+}

@@ -1,0 +1,29 @@
+page-signature-modal {
+
+  .modal-page {
+    padding: 10px !important;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .formModal {
+    margin: 0px !important;
+    background-color: white !important;
+    padding: 0px !important;
+    min-height: 450px;
+    color: #444;
+  }
+
+  signature-pad {
+    canvas {
+      border: dashed 1px #03a9f4;
+      width: 100%; height: 100px;
+    }
+  }
+
+  ion-grid, ion-col, ion-row {
+    margin: 0px !important;
+    padding: 0px !important;
+  }
+
+
+}

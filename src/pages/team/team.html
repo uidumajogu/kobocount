@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-navbar color="primary2">
+    <ion-row>
+      <ion-col col-2>
+        <button ion-button menuToggle style="margin-top: 10px">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <h5 style="color: white">My Team</h5>
+      </ion-col>
+      <ion-col col-2>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <br><br>
+
+    <ion-list>
+        <ion-item *ngFor="let member of teamMembers; let i = index" no-padding
+                  [ngClass]="{'bgColor' :(i % 2 != 0)}"   (click)="editTeamMember(member.fullName, member.email, member.active, member.companyAdmin, member.$key)">
+
+          <ion-row>
+            <ion-col col-2 style="font-size: 12px; padding-left: 5px; text-align: center"
+                     [ngClass]="{'isAdminColor' :(member.companyAdmin), 'isNotAdminColor' :(!member.companyAdmin)}">
+              <ion-icon name="person"></ion-icon>
+            </ion-col>
+            <ion-col col-8
+                     style="text-transform: uppercase; font-size: 12px; padding-left: 5px; font-weight: bold;text-align: center"
+                     [ngClass]="{'isAdminColor' :(member.companyAdmin), 'isNotAdminColor' :(!member.companyAdmin)}">
+              {{member.fullName}}
+            </ion-col>
+            <ion-col col-2 style="font-size: 12px; text-align: left; font-weight: bold;"
+                     [ngClass]="{'isAdminColor' :(member.companyAdmin), 'isNotAdminColor' :(!member.companyAdmin)}">
+              {{member.companyAdmin | adminStatus}}
+            </ion-col>
+            <!--<ion-col col-1 style="text-align: right; color: #4d4d4d">-->
+              <!--<ion-icon *ngIf="!member.companyAdmin" name="more"></ion-icon>-->
+            <!--</ion-col>-->
+          </ion-row>
+
+          <ion-row>
+            <ion-col col-2></ion-col>
+            <ion-col col-8 style="font-size: 10px; text-align: center"
+                     [ngClass]="{'isAdminColor' :(member.companyAdmin), 'isNotAdminColor' :(!member.companyAdmin)}">
+              {{member.email}}
+            </ion-col>
+            <ion-col col-2 style="font-size: 10px; text-align: left;"
+                     [ngClass]="{'isAdminColor' :(member.companyAdmin), 'isNotAdminColor' :(!member.companyAdmin)}">
+              <span *ngIf="member.active === true">Active</span>
+              <span *ngIf="member.active === false">Disabled</span>
+            </ion-col>
+            <!--<ion-col col-1 style="text-align: center"-->
+                     <!--[ngClass]="{'isAdminColor' :(member.companyAdmin), 'isNotAdminColor' :(!member.companyAdmin)}">-->
+            <!--</ion-col>-->
+          </ion-row>
+
+      </ion-item>
+
+    </ion-list>
+
+  <ion-fab #fab top right edge (click)="addTeamMember()">
+    <button ion-fab mini color="primary3"><ion-icon name="person-add"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>
+
+<!--<ion-footer style="border-top: solid 2px #0081FF">-->
+  <!--<ion-toolbar color="light" no-margin no-padding>-->
+    <!--<ion-row no-margin no-padding>-->
+      <!--<ion-col no-margin no-padding style="text-align: center;" (click)="addTeamMember()"-->
+               <!--[ngClass]="{'ttabBtnCol' : (addBtn), 'ttabBtnColdef' : (!addBtn)}">-->
+        <!--<ion-icon name="person-add" style="font-size: 30px"></ion-icon>-->
+        <!--<p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Add</p>-->
+      <!--</ion-col>-->
+
+      <!--<ion-col no-margin no-padding style="text-align: center;" (click)="editTeamMember()"-->
+               <!--[ngClass]="{'ttabBtnCol' : (editBtn), 'ttabBtnColdef' : (!editBtn)}">-->
+        <!--<ion-icon name="brush" style="font-size: 30px"></ion-icon>-->
+        <!--<p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Edit</p>-->
+      <!--</ion-col>-->
+
+      <!--<ion-col no-margin no-padding style="text-align: center;" (click)="endisTeamMember()"-->
+               <!--[ngClass]="{'ttabBtnCol' : (edBtn), 'ttabBtnColdef' : (!edBtn)}">-->
+        <!--<ion-icon name="contact" style="font-size: 30px"></ion-icon>-->
+        <!--<p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Enable/Disable</p>-->
+      <!--</ion-col>-->
+
+      <!--<ion-col no-margin no-padding style="text-align: center;" (click)="delTeamMember()"-->
+               <!--[ngClass]="{'ttabBtnCol' : (delBtn), 'ttabBtnColdef' : (!delBtn)}">-->
+        <!--<ion-icon name="remove-circle" style="font-size: 30px"></ion-icon>-->
+        <!--<p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Delete</p>-->
+      <!--</ion-col>-->
+    <!--</ion-row>-->
+  <!--</ion-toolbar>-->
+
+<!--</ion-footer>-->

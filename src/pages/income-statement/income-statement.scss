@@ -1,0 +1,48 @@
+page-income-statement {
+
+  .ionco {
+    //background-color: #2E77D8 !important;
+    //background-color: #1c39bb !important;
+    background-image: url("../img/0081FF.png");
+    min-height: 100%;
+    background-attachment: fixed;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: 100% 110px;
+    //background-size: cover;
+  }
+
+  ion-header, ion-navbar, ion-toolbar {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+
+  .btnActive {
+    color: white;
+    background-color: #0081ff;
+    font-weight: bold;
+  }
+
+  .btnInActive {
+    background-color: white;
+    font-weight: normal;
+  }
+
+  .btnColor {
+    color: white;
+  }
+
+  .bgColor {
+    background-color: #fbfbfb;
+  }
+
+  .inactiveTabColor {
+    color: #D8DFE8;
+  }
+
+  .activeTabColor {
+    color: #0081ff;
+  }
+
+}

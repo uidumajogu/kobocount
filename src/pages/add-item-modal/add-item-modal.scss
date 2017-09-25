@@ -1,0 +1,56 @@
+page-add-item-modal {
+
+
+  ion-content {
+      //overflow: hidden;
+
+    ion-grid, ion-row, ion-col {
+      padding: 0px !important;
+      margin: 0px !important;
+      font-size: 14px;
+    }
+  }
+
+  .modal-page {
+    padding: 2px !important;
+    background: rgba(0,0,0,0.5);
+    //background: rgba(225,225,225,0.8);
+  }
+
+  .formModal {
+    margin: 0px !important;
+    background-color: white !important;
+    padding: 0px !important;
+    //min-height: 400px;
+  }
+
+  ion-row {
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper:after {
+      position: absolute;
+      border: 1px solid #ccc;
+      border-top: none;
+      height: 5px;
+      width: 98%;
+      bottom: 1px;
+      left: 0;
+      content: "";
+    }
+  }
+
+    ion-list, ion-list ion-item, ion-list ion-item ion-label, ion-list ion-item ion-label span {
+      padding: 0px 10px 0px 10px !important;
+      margin: 0px !important;
+      border: none !important;
+    }
+
+  .no-padding {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+
+}

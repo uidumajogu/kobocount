@@ -1,0 +1,75 @@
+
+<ion-header>
+  <ion-navbar transparent style="border-bottom: solid 2px white">
+    <ion-title>
+        <h5 style="color: white">Sign In</h5>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+<br><br><br>
+
+  <!--<img class="siLogo" src="img/logo.png">-->
+
+  <form [formGroup]="loginForm" (submit)="signInUser()" novalidate>
+    <br><br><br><br>
+    <div class="lgf">
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input formControlName="email" type="email"
+                 [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty">
+      </ion-input>
+      <ion-icon name="at" item-right></ion-icon>
+    </ion-item>
+    <ion-item no-lines class="error-message"
+              *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.dirty">
+      <p style="color: #FD6B72">Please enter a valid email.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input formControlName="password" type={{loginPasswordInputType}}
+                 [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty">
+      </ion-input>
+      <ion-icon name={{loginPasswordFieldIcon}} item-right></ion-icon>
+    </ion-item>
+    <ion-item no-lines class="error-message"
+              *ngIf="!loginForm.controls.password.valid  && loginForm.controls.password.dirty">
+      <p style="color: #FD6B72">Your password needs more than 6 characters.</p>
+    </ion-item>
+
+      <ion-item no-lines>
+        <ion-label style="padding: 0px; font-size: 12px">Show Password</ion-label>
+        <ion-checkbox style="margin: 3px" checked={{toggleLoginPasswordInputType}} (click)="showHideLoginPassword()"></ion-checkbox>
+      </ion-item>
+    </div>
+
+    <br><br><br>
+    <p style="margin: 5px; text-align: center; font-size: 14px; color: #333">By proceeding to Sign In, you agree to our<br> <a>Licence Agreement</a> and <a>Privacy Statement</a></p>
+
+    <div class="smb">
+    <button ion-button block type="submit" color="light" style="color: #2979FF"
+            [disabled]="!loginForm.valid">
+      SIGN IN
+    </button>
+    </div>
+  </form>
+</ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar no-margin no-padding color="primary2">
+    <ion-row>
+      <ion-col style="text-align: center">
+        <button ion-button clear color="light" style="font-size: 12px" (click)="goToRegister()">
+          Not Registered?
+        </button>
+      </ion-col>
+      <ion-col style="text-align: center">
+        <button ion-button clear color="light" style="font-size: 12px" (click)="goToResetPassword()">
+          Forgot Password?
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

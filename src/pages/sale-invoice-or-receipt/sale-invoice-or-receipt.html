@@ -1,0 +1,423 @@
+<ion-header>
+
+  <ion-navbar color="primary2">
+    <ion-title>{{saleIRTag}}</ion-title>
+
+    <ion-buttons *ngIf="noCustomerDetails" end (click)="submitCustomerDetails()">
+      <button ion-button icon-only>
+        <ion-icon name="open"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons *ngIf="!noCustomerDetails" end (click)="dwnldPdf()">
+      <button ion-button icon-only>
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons *ngIf="!noCustomerDetails" end (click)="dwnldPdf()">
+      <button ion-button icon-only>
+        <ion-icon name="download" margin="10px"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-buttons *ngIf="!noCustomerDetails" end (click)="sendEmail()">
+      <button ion-button icon-only>
+        <ion-icon name="mail" margin="10px"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+
+  <div *ngIf="noCustomerDetails" class="cdBox" style="margin-top: 3px">
+
+    <h6 style="text-align: center; color: #03a9f4; font-size: 12px">You need to enter the following details to create {{saleIRTag}}</h6>
+    <hr>
+
+    <div *ngIf="isInvoice">
+    <p *ngIf="saleDueDateValid" style="font-size: 12px; text-align: center; color: red">Enter the Invoice due date</p>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-1>
+          <ion-icon style="font-size: 20px; color: #03a9f4; margin-top: 10px" name="calendar" item-left></ion-icon>
+        </ion-col>
+        <ion-col>
+          <div style="margin-top: 10px;">
+            <input type="date" placeholder="Due Date" [(ngModel)]="saleDueDate">
+          </div>
+        </ion-col>
+        <ion-col>
+          <p style="color: #cccccc; font-size: 10px; margin: 15px 0px 0px 5px">Select Payment Due Date</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </div>
+    <div style="padding: 5px ; border: dotted 0.5px #03a9f4; margin: 0px 5px 5px 5px; background-color: white; border-radius: 5px">
+      <button ion-button full color="p-light" style="border-radius: 5px">Customer Details</button>
+      <p *ngIf="customerDetailsValid" style="font-size: 12px; text-align: center; color: red">Complete the Customer Information</p>
+      <div style="padding: 5px; border-top: solid 0.5px dodgerblue; margin: 10px 10px 10px 10px; background-color: white">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="person" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px;" type="text" placeholder="Customers' Name" [(ngModel)]="customerName"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="call" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="tel" placeholder="Customers' Phone Number" [(ngModel)]="customerPhoneNumber"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="mail" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="email" placeholder="Customers' Email" [(ngModel)]="customerEmail"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+    <div style="padding: 5px ; border: dotted 0.5px #03a9f4; margin: 10px 5px 50px 5px; background-color: white; border-radius: 5px">
+      <button ion-button full color="p-grey" style="border-radius: 5px">Delivery Details</button>
+      <p *ngIf="deliveryDetailsValid" style="font-size: 12px; text-align: center; color: red">Complete the Delivery Details</p>
+      <div div style="padding: 5px; border-top: solid 0.5px dodgerblue; margin: 0px 10px 10px 10px; background-color: white">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="bicycle" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Street 1" [(ngModel)]="cdStreet1"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="bicycle" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Street 2" [(ngModel)]="cdStreet2"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="bus" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="City" [(ngModel)]="cdCity"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="train" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="State" [(ngModel)]="cdState"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="train" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Country" [(ngModel)]="cdCountry"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 20px; color: #03a9f4; margin-top: 10px" name="calendar" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <div style="margin-top: 10px;">
+                <input type="date" placeholder="Delivery Date" [(ngModel)]="saleDDate">
+              </div>
+            </ion-col>
+            <ion-col>
+              <p style="color: #cccccc; font-size: 10px; margin: 15px 0px 0px 5px">Select Delivery Date</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  </div>
+  </div>
+
+<div *ngIf="!noCustomerDetails">
+
+
+  <div class="invoice-box" id="invoice-page">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h2 style="color: blue">{{ bizProfile?.companyName }}</h2>
+        </ion-col>
+        <ion-col style="text-align: right">
+          <p>{{bizProfile?.companyAddress.street}}</p>
+          <p>{{bizProfile?.companyAddress.city | titleCase}}, {{bizProfile?.companyAddress.state | titleCase}}</p>
+          <p>{{bizProfile?.companyAddress.country | titleCase}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <h6 style="text-align: center">{{saleIRTag + " " + saleIRNumber}}</h6>
+    <hr>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p><strong>Bill to:</strong></p>
+          <p style="color: white">.</p>
+          <p style="color: #333"><ion-icon style="font-size: 5px; color: #03a9f4" name="person" item-left></ion-icon>: {{customerName}}</p>
+          <p><ion-icon style="font-size: 5px; color: #03a9f4" name="mail" item-left></ion-icon>: {{customerEmail}}</p>
+          <p><ion-icon style="font-size: 5px; color: #03a9f4" name="call" item-left></ion-icon>: {{customerPhoneNumber}}</p>
+          <p style="color: white">.</p>
+          <p>{{cdStreet1}} {{cdStreet2}}</p>
+          <p>{{cdCity}}</p>
+          <p>{{cdState}}</p>
+          <p>{{cdCountry}}</p>
+        </ion-col>
+        <ion-col style="text-align: right">
+          <p *ngIf="!isInvoice">Date: {{saleIRDate | date:'dd-MMM-yyyy'}}</p>
+          <p *ngIf="isInvoice">Created On: {{saleIRDate | date:'dd-MMM-yyyy'}}</p>
+          <p *ngIf="!isInvoice">Paid On: {{saleDueDate | date:'dd-MMM-yyyy'}}</p>
+          <p *ngIf="isInvoice">Due On: {{saleDueDate}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row class="heading">
+        <ion-col col-3 style="text-align: left">
+          DESCRIPTION
+        </ion-col>
+        <ion-col col-1>
+          QTY
+        </ion-col>
+        <ion-col col-3>
+          RATE
+        </ion-col>
+        <ion-col col-2>
+          DISCOUNT
+        </ion-col>
+        <ion-col col-3 style="text-align: right">
+          AMOUNT
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="gnm" *ngFor="let item of saleItems; let i = index">
+      <ion-row class="info" *ngIf="!(i === saleItems.length - 1)">
+        <ion-col col-3 style="text-align: left">
+          {{item.description}}
+        </ion-col>
+        <ion-col col-1>
+          {{item.quantity}}
+        </ion-col>
+        <ion-col col-3>
+          ₦{{item.unitPrice | number:'1.2'}}
+        </ion-col>
+        <ion-col col-2>
+          ₦{{item.saleDiscount | number:'1.2'}}
+        </ion-col>
+        <ion-col col-3 style="text-align: right">
+          ₦{{(item.quantity * item.unitPrice) - item.saleDiscount  | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <hr style="margin: 5px 5px 10px 5px">
+
+    <ion-grid class="gnm">
+      <ion-row class="totals">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          Subtotal
+        </ion-col>
+        <ion-col col-3>
+          {{saleSubTotalIRP | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="gnm">
+      <ion-row class="totals">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          Discount
+        </ion-col>
+        <ion-col col-3>
+          {{(globalSaleDiscount) | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="gnm">
+      <ion-row class="totals">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          Shipping
+        </ion-col>
+        <ion-col col-3>
+          {{saleShipping | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="gnm">
+      <ion-row class="totals">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          VAT
+        </ion-col>
+        <ion-col col-3>
+          {{saleVAT | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="gnm">
+      <ion-row>
+        <ion-col>
+
+        </ion-col>
+        <ion-col>
+          <hr style="margin: 5px 0px 10px 5px">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <ion-grid class="gnm">
+      <ion-row class="totals2" style="color: #555">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          Total
+        </ion-col>
+        <ion-col col-3>
+          {{((saleSubTotalIRP - globalSaleDiscount) + saleShipping + saleVAT) | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="gnm">
+      <ion-row class="totals2" *ngIf="!isInvoice">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          Paid ({{salePaymentDate | date:'dd-MMM-yyyy' }})
+        </ion-col>
+        <ion-col col-3>
+          {{paidSaleTotal | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="totals2" *ngIf="isInvoice" style="color: black">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          Paid
+        </ion-col>
+        <ion-col col-3>
+          {{paidSaleTotal | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="gnm" *ngIf="isInvoice">
+      <ion-row class="totals2">
+        <ion-col col-4>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+        <ion-col col-3>
+          Balance Due
+        </ion-col>
+        <ion-col col-3>
+          {{((saleSubTotalIRP - globalSaleDiscount) + saleShipping + saleVAT) - paidSaleTotal | number:'1.2' }}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="salePaidValid">
+      <ion-row class="totals">
+        <ion-col col-6>
+        </ion-col>
+        <ion-col col-3>
+          Payment Method:
+        </ion-col>
+        <ion-col col-3>
+          {{paymentMode}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid style="margin-top: 20px">
+      <ion-row>
+        <ion-col>
+        </ion-col>
+        <ion-col style="text-align: center">
+          <button *ngIf="!signatureImage" ion-button block outline color="p-light" (click)="openSignatureModal()">Tap to sign</button>
+          <br *ngIf="signatureImage">
+          <img [src]="signatureImage" *ngIf="signatureImage" style="width: 40%; height: 40%;" (click)="openSignatureModal()"/>
+          <hr *ngIf="signatureImage">
+          <p style="text-align: center" *ngIf="signatureImage">Company Representative</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </div>
+
+</div>
+
+</ion-content>

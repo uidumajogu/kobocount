@@ -1,0 +1,73 @@
+page-sign-in {
+  background-color: #0081FF !important;
+  ion-content {
+
+    background-color: transparent !important;
+    //background-image: url("../img/1.jpg");
+    //min-height: 500px;
+    //background-attachment: fixed;
+    //background-position: center;
+    //background-repeat: no-repeat;
+    //background-size: cover;
+  }
+
+
+  ion-item {
+    margin: auto;
+    background-color: transparent !important;
+
+  }
+
+  .lgf {
+    margin-left: 15px !important;
+    margin-right: 20px !important;
+    text-align: center !important;
+  }
+
+  .smb{
+    margin-left: 50px !important;
+    margin-right: 40px !important;
+    margin-top: 10px !important;
+    text-align: center !important;
+  }
+
+
+  ion-item ion-icon {
+      color: aliceblue;
+      font-size: 18px !important;
+      margin-top: 40px !important;
+      margin-bottom: 0px !important;
+    }
+
+  ion-icon {
+    color: aliceblue;
+  }
+
+
+  .siLogo {
+    max-width: 50px;
+    max-height: 50px;
+    position:absolute;
+    left: 0;
+    right: 0;
+    margin:0 auto;
+  }
+
+  ion-label {
+    color: white !important;
+    font-size: 14px;
+  }
+
+  ion-input {
+    color: aliceblue;
+  }
+
+  button {
+    border-radius: 5px !important;
+  }
+
+  ion-footer {
+    position: absolute;
+  }
+
+}

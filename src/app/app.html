@@ -1,0 +1,63 @@
+<!--<ion-nav [root]="rootPage"></ion-nav>-->
+
+<ion-menu [content]="content">
+  <ion-header color="primary2">
+    <ion-toolbar color="primary2" style="text-align: center; border-bottom: solid 2px #777">
+      <img style="max-width: 80px; max-height: 80px" src="img/mlogo.png">
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+
+    <ion-list no-padding no-margin no-lines>
+      <button style="font-size: 12px; color: #777; font-weight: bold" menuClose ion-item *ngFor="let h of homeMenu" (click)="openPage(h)">
+        {{h.title}}
+        <ion-icon style="font-size: 25px" color="light2" name={{h.icon}} item-left></ion-icon>
+      </button>
+    </ion-list>
+    <hr>
+
+    <h6 style="text-align: center; color: #0081FF">Add Transaction</h6>
+    <ion-list no-padding no-margin no-lines>
+      <button style="font-size: 12px; color: #777; font-weight: bold" menuClose ion-item *ngFor="let t of transactionMenu" (click)="openPage(t)">
+        {{t.title}}
+        <ion-icon style="font-size: 25px" color="light2" name={{t.icon}} item-left></ion-icon>
+      </button>
+    </ion-list>
+    <hr>
+
+    <h6 style="text-align: center; color: #0081FF">Reports</h6>
+    <ion-list no-padding no-margin no-lines>
+      <button style="font-size: 12px; color: #777; font-weight: bold" menuClose ion-item *ngFor="let r of reportMenu" (click)="openPage(r)">
+        {{r.title}}
+        <ion-icon style="font-size: 25px" color="light2" name={{r.icon}} item-left></ion-icon>
+      </button>
+    </ion-list>
+    <hr>
+
+    <h6 style="text-align: center; color: #0081FF">Settings</h6>
+    <ion-list no-padding no-margin no-lines>
+      <button style="font-size: 12px; color: #777; font-weight: bold" menuClose ion-item *ngFor="let s of settingsMenu" (click)="openPage(s)">
+        {{s.title}}
+        <ion-icon style="font-size: 25px" color="light2" name={{s.icon}} item-left></ion-icon>
+      </button>
+    </ion-list>
+    <br>
+  </ion-content>
+
+  <ion-footer>
+  <ion-toolbar no-margin no-padding no-border transparent style="text-align: center; border-top: solid 2px #0081FF">
+    <button ion-button small clear color="primary2" menuClose no-margin no-padding (click)="logout()">
+      <ion-icon no-margin no-padding style="font-size: 24px; padding-right: 10px" color="primary2" name="log-out" item-left></ion-icon>
+      Log Out
+    </button>
+  </ion-toolbar>
+  </ion-footer>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+
+
+

@@ -1,0 +1,22 @@
+page-welcome {
+  background-color: #0081FF !important;
+
+  ion-content {
+    margin-top: 50%;
+    background-color: transparent !important;
+    text-align: center;
+    p {
+      color: white;
+    }
+
+    img {
+      max-width: 60%;
+      max-height: 60%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+
+  }
+}

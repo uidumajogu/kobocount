@@ -1,0 +1,29 @@
+
+<ion-content padding class="modal-page">
+  <div style="background-color: #0081FF !important; margin-top: 100px">
+    <br>
+    <h4 style="text-align: center; color: white">Enter Your Mobile Phone Number</h4>
+    <br>
+    <ion-content class="mc formModal">
+      <ion-list>
+      <ion-item [(ngModel)]="phoneNum">
+        <ion-input type="tel" placeholder="+2227777777777"></ion-input>
+      </ion-item>
+      </ion-list>
+      <p style="font-style: italic; font-size: 8px">Enter your Mobile Phone Number in the format "+AreaCode & PhoneNumber" e.g +2348055543222</p>
+      <br>
+      <button ion-button outline color="danger" icon-left style="float: left; margin-left: 20px; margin-top: 40px;" (click)="closePhoneNumberModal()">
+        <ion-icon color="danger" name="close"></ion-icon>
+        CANCEL
+      </button>
+      <button ion-button icon-right color="primary2" style="float: right; margin-right: 20px; margin-top: 40px;" (click)="submitPhoneNumberModal()">
+        SUBMIT
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </button>
+      <br>
+
+    </ion-content>
+    <br>
+  </div>
+</ion-content>
+

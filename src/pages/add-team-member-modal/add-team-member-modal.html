@@ -1,0 +1,72 @@
+
+<ion-header>
+  <ion-toolbar transparent style="border-bottom: solid 2px white">
+    <ion-title>
+      <h5 style="color: white">Create Team Member</h5>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <br><br>
+  <form [formGroup]="registerForm" (submit)="createTeamMember()" novalidate>
+    <div class="lgf">
+      <ion-item>
+        <ion-label floating>Full Name</ion-label>
+        <ion-icon name="person" item-right></ion-icon>
+        <ion-input formControlName="fullName" type="text"
+                   [class.invalid]="!registerForm.controls.fullName.valid && registerForm.controls.fullName.dirty">
+        </ion-input>
+      </ion-item>
+      <ion-item no-lines class="error-message"
+                *ngIf="!registerForm.controls.fullName.valid  && registerForm.controls.fullName.dirty">
+        <p style="color: #FD6B72">You have to enter the name of the user.</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input formControlName="email" type="email"
+                   [class.invalid]="!registerForm.controls.email.valid && registerForm.controls.email.dirty">
+        </ion-input>
+        <ion-icon name="at" item-right></ion-icon>
+      </ion-item>
+      <ion-item no-lines class="error-message"
+                *ngIf="!registerForm.controls.email.valid  && registerForm.controls.email.dirty">
+        <p style="color: #FD6B72">Please enter a valid email.</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Password</ion-label>
+        <ion-input formControlName="password" type={{registerPasswordInputType}}
+                   [class.invalid]="!registerForm.controls.password.valid && registerForm.controls.password.dirty">
+        </ion-input>
+        <ion-icon name={{registerPasswordFieldIcon}} item-right></ion-icon>
+      </ion-item>
+      <ion-item no-lines class="error-message"
+                *ngIf="!registerForm.controls.password.valid  && registerForm.controls.password.dirty">
+        <p style="color: #FD6B72">Your password needs more than 6 characters.</p>
+      </ion-item>
+
+      <ion-item no-lines>
+        <ion-label style="padding: 0px; font-size: 12px">Show Password</ion-label>
+        <ion-checkbox style="margin: 3px" checked={{toggleRegisterPasswordInputType}} (click)="showHideRegisterPassword()"></ion-checkbox>
+      </ion-item>
+    </div>
+    <br><br>
+    <p style="text-align: center; color: #333">By proceeding to Create a Team Member, you agree to our <a>Licence Agreement</a> and <a>Privacy Statement</a></p>
+    <div class="smb">
+      <button ion-button block type="submit" color="light" style="color: #2979FF"
+              [disabled]="!registerForm.valid">
+        CREATE TEAM MEMBER
+      </button>
+    </div>
+
+  </form>
+
+
+  <ion-fab #fab top right edge (click)="dismissModal()">
+    <button ion-fab mini color="danger3"><ion-icon name="close" color="light"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

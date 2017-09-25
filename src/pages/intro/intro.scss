@@ -1,0 +1,67 @@
+page-intro {
+
+  background-color: #0081FF;
+  //background-image: url("../img/bg.jpg");
+  //min-height: 500px;
+  //background-attachment: fixed;
+  //background-position: center;
+  //background-repeat: no-repeat;
+  //background-size: cover;
+
+  .sp-logo {
+    //zoom: 10%;
+    right: 20px;
+    top: 20px;
+    height: auto;
+    width: auto;
+    max-width: 50px;
+    max-height: 50px;
+    position: absolute;
+  }
+
+  .sl1 {
+    zoom: 60%;
+  }
+
+  .main-logo {
+    max-width: 100%;
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    zoom: 20%;
+  }
+
+  .image {
+    zoom: 40%;
+  }
+  .side {
+    display: inline-block;
+    margin: 0px 15px 0px 15px;
+  }
+
+  .walkthrough-view {
+    height: 90%;
+    margin: 0px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #CEE0FF;
+  }
+
+  h2 {
+    font-size: 20px;
+    color: #FFF;
+    font-weight: bold;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: white;
+    opacity: 1;
+  }
+
+  button {
+    border-radius: 5px !important;
+  }
+
+}

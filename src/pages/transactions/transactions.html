@@ -1,0 +1,168 @@
+<ion-header no-margin no-padding>
+
+  <ion-toolbar color="primary2" no-margin no-padding>
+      <ion-row no-margin no-padding>
+        <ion-col col-2 no-margin no-padding style="text-align: center;"  (click)="backward()">
+          <ion-icon color="light" name="remove"></ion-icon>
+        </ion-col>
+        <ion-col no-margin no-padding style="text-align: center;color: white; font-size: 14px; font-weight: bold;">
+          {{pDescription}}
+        </ion-col>
+        <ion-col *ngIf="!fwdBtn" col-2 no-margin no-padding style="text-align: center;">
+          <ion-icon color="light" name="add"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf="fwdBtn" col-2 no-margin no-padding style="text-align: center;" (click)="forward()">
+          <ion-icon color="light" name="add"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf="fwdBtn" col-2 no-margin no-padding style="text-align: center;" (click)="fFoward()">
+          <ion-icon color="light" name="fastforward"></ion-icon>
+        </ion-col>
+      </ion-row>
+  </ion-toolbar>
+
+  <div style="padding: 10px 0px 0px 0px;">
+    <ion-row no-margin no-padding>
+      <ion-col no-margin no-padding style="text-align: center;" (click)="allTxnReport()"
+               [ngClass]="{'tabBtnCol' : (txnBtn), 'tabBtnColdef' : (!txnBtn)}">
+        <ion-icon name="book" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Transactions</p>
+      </ion-col>
+
+      <ion-col no-margin no-padding style="text-align: center;" (click)="allSalesReport()"
+               [ngClass]="{'tabBtnCol' : (saleBtn), 'tabBtnColdef' : (!saleBtn)}">
+        <ion-icon name="trending-up" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Sales</p>
+      </ion-col>
+
+      <ion-col no-margin no-padding style="text-align: center;" (click)="allUnpaidReport()"
+               [ngClass]="{'tabBtnCol' : (unpaidBtn), 'tabBtnColdef' : (!unpaidBtn)}">
+        <ion-icon name="alert" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Unpaid</p>
+      </ion-col>
+
+      <ion-col no-margin no-padding style="text-align: center;" (click)="allExpReport()"
+               [ngClass]="{'tabBtnCol' : (expBtn), 'tabBtnColdef' : (!expBtn)}">
+        <ion-icon name="trending-down" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 9px; font-weight: bold; padding: 0px; margin: 0px;">Expenses</p>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-header>
+
+
+
+<ion-content no-padding no-margin>
+
+    <div *ngIf="noTxns" class="center">
+      <img src="img/empty-folder.png" alt="" style="opacity: 0.5; height: 30%; width: 30%">
+      <h6 style="text-transform: lowercase">No {{reportDescription}} for this period</h6>
+    </div>
+
+  <div *ngIf="!noTxns" style="margin-top: 1px">
+  <ion-list no-margin no-padding>
+    <ion-item no-padding no-margin style="background-color: whitesmoke">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3 style="font-size: 12px; font-weight: bold; color: #444; padding-left: 5px">
+            DATE
+          </ion-col>
+          <ion-col col-4 style="font-size: 12px; font-weight: bold; color: #444">
+            {{reportDescription}}
+          </ion-col>
+          <ion-col col-5 style="font-size: 12px; font-weight: bold; color: #444; text-align: right; padding-right: 5px">
+            AMOUNT
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+
+    <ion-item *ngFor="let txn of allTxns; let i = index" no-padding (click)="txnDetails(txn)"
+              [ngClass]="{'bgColor' :(i % 2 != 0) && (txn.Type === 'Sale'), 'expBgColor' :(txn.Type === 'Expense')}">
+      <ion-grid>
+      <ion-row>
+        <ion-col col-3 style="font-size: 12px; padding-left: 5px"
+                 [ngClass]="{'saleColor' :(txn.Type === 'Sale'), 'expColor':(txn.Type === 'Expense')}">
+          {{txn.Date}}
+        </ion-col>
+        <ion-col col-4 style="font-size: 12px"
+                 [ngClass]="{'saleColor' :(txn.Type === 'Sale'), 'expColor':(txn.Type === 'Expense')}">
+          {{txn.Type}}
+        </ion-col>
+        <ion-col col-5 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold"
+                 [ngClass]="{'saleColor' :(txn.Type === 'Sale'), 'expColor':(txn.Type === 'Expense')}">
+          ₦{{txn.TotalAmount | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-3>
+          </ion-col>
+          <ion-col col-4 style="font-size: 8px;"
+                   [ngClass]="{'saleColor' :(txn.Type === 'Sale'), 'expColor':(txn.Type === 'Expense')}">
+            {{txn.ID}}
+          </ion-col>
+          <ion-col *ngIf="txn.Type === 'Sale'" col-5 style="font-size: 8px; text-align: right; padding-right: 5px"
+                   [ngClass]="{'fPaidColor' :(txn.IsPaid === 'YES'), 'nPaidColor':(txn.IsPaid === 'NO'), 'pPaidColor':(txn.IsPaid === 'PARTIAL')}">
+            {{txn.IsPaid | tpc}}
+          </ion-col>
+          <ion-col *ngIf="txn.Type === 'Expense'" col-5 style="font-size: 8px; text-align: right; padding-right: 5px"
+                   [ngClass]="{'saleColor' :(txn.Type === 'Sale'), 'expColor':(txn.Type === 'Expense')}">
+            {{txn.IsPaid | tpc}}
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-item>
+
+  </ion-list>
+  </div>
+
+  <ion-fab #fab bottom right edge (click)="hideOverlay()">
+    <button ion-fab mini color="primary3"><ion-icon name="menu"></ion-icon></button>
+
+    <ion-fab-list side="top">
+
+      <button ion-fab color="primary2" (click)="goToHomePage(fab)">
+        <ion-icon name="home"></ion-icon>
+        <div class="label" style="color: #2979FF">Home</div>
+      </button>
+
+      <button ion-fab color="light1" (click)="goToOutsPymtsPage(fab)">
+        <ion-icon name="alert"></ion-icon>
+        <div class="label" style="color: #8995A5">Outstanding Payments</div>
+      </button>
+
+      <button ion-fab color="danger1" (click)="goToExpensePage(fab)">
+        <ion-icon name="add-circle"></ion-icon>
+        <div class="label" style="color: #f37271">Add Expense</div>
+      </button>
+
+      <button ion-fab color="secondary1" (click)="goToSalesPage(fab)">
+        <ion-icon name="add-circle"></ion-icon>
+        <div class="label" style="color: #45b91f">Add Sale</div>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>
+
+<div class="my-overlay" padding [hidden]="overlayHidden">
+  <button ion-button small clear></button>
+</div>
+
+<ion-footer>
+
+  <ion-grid>
+  <ion-row>
+    <ion-col style="text-align: center;">
+      <h4 style="color: white !important; margin: 10px 0px 10px 0px; padding: 0px; font-size: 12px; text-align: center">
+        <span *ngIf="reportDescription != 'TRANSACTIONS'">Total <span style="text-transform: lowercase">{{reportDescription}}</span></span>
+        <span *ngIf="reportDescription === 'TRANSACTIONS'"> Net Total </span>
+        this Month: <span style="font-weight: bold">₦{{mBal | number:'1.2'}}</span></h4>
+    </ion-col>
+  </ion-row>
+  </ion-grid>
+
+</ion-footer>

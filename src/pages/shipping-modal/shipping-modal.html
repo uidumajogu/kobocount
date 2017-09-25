@@ -1,0 +1,203 @@
+
+<ion-content padding-left padding-right class="modal-page">
+
+  <ion-navbar>
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col>
+          <ion-title style="text-align: center; font-size: 12px">Add Shipping Details</ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+
+  <ion-grid no-padding>
+    <ion-row style="background-color: #0081ff">
+      <ion-col style="border-right: solid white;">
+        <button ion-button block clear color="light" (click)="closeShippingModal()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="arrow-back" item-left></ion-icon>
+          BACK
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block clear color="light" (click)="submitShippingModal()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="checkmark" item-left></ion-icon>
+          DONE
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-content no-padding style="color: #444444">
+    <br>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-7>
+          <ion-label>Enter Shipping Fee:</ion-label>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col col-5>
+          <div class="tdInput-wrapper">
+            <ion-input no-padding type="number" placeholder="0" [(ngModel)]="saleShippingFee"></ion-input>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4>
+          <ion-label>Shipping VAT</ion-label>
+        </ion-col>
+        <ion-col col-3>
+          <ion-toggle color="p-light" style="float: left; padding-left: 1px;" [(ngModel)]="toggleShippingVATValue" (ionChange)="calcShippingVAT()"></ion-toggle>
+        </ion-col>
+        <ion-col col-5>
+          <ion-label style="text-align: right">₦{{shippingVAT | number:'1.2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <hr style="background-color: lavender">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-7>
+          <ion-label no-margin no-padding style="font-weight: bold; font-size: 14px">Shipping Fee:</ion-label>
+        </ion-col>
+        <ion-col>
+        </ion-col>
+        <ion-col col-5>
+          <ion-label no-margin no-padding style="font-weight: bold; font-size: 14px; text-align: right">₦{{(saleShippingFee | anyToNumber) + shippingVAT | number:'1.2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <br>
+    <div style="padding: 3px ; border: dotted 0.5px #0081FF; background-color: white; border-radius: 5px">
+      <p style="text-align: center;  color: #4da7ff; margin: 2px">
+        <strong style="font-size: 14px;">&nbsp;&nbsp;&nbsp;Customer Details </strong>
+        <ion-icon style="float: right; margin-right: 20px" name="contact"></ion-icon>
+      </p>
+      <div style="padding: 5px; border-top: solid 0.5px #4da7ff; background-color: white">
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #03a9f4; margin-top: 10px" name="person" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px;" type="text" placeholder="Customers' Name" [(ngModel)]="saleShippingCustomerName"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #0081FF; margin-top: 10px" name="call" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="tel" placeholder="Customers' Phone Number" [(ngModel)]="saleShippingCustomerPhoneNumber"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #0081FF; margin-top: 10px" name="mail" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="email" placeholder="Customers' Email" [(ngModel)]="saleShippingCustomerEmail"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+      <br>
+
+    <div style="padding: 3px ; border: dotted 0.5px #0081FF; margin-bottom: 20px; background-color: white; border-radius: 5px">
+      <p style="text-align: center; color: #4da7ff; margin: 2px">
+        <strong style="font-size: 14px;">&nbsp;&nbsp;&nbsp;Delivery Details
+          <!--<span style="font-weight: normal; font-size: 10px; color: #cccccc">optional</span>-->
+        </strong>
+        <ion-icon style="float: right; margin-right: 20px" name="cube"></ion-icon>
+      </p>
+      <div div style="padding: 5px; border-top: solid 0.5px #4da7ff; background-color: white">
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #0081FF; margin-top: 10px" name="bicycle" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Street 1" [(ngModel)]="sStreet1"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #0081FF; margin-top: 10px" name="bicycle" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Street 2" [(ngModel)]="sStreet2"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #0081FF; margin-top: 10px" name="bus" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="City" [(ngModel)]="sCity"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #0081FF; margin-top: 10px" name="train" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="State" [(ngModel)]="sState"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 14px; color: #0081FF; margin-top: 10px" name="train" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Country" [(ngModel)]="sCountry"></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid>
+          <ion-row>
+            <ion-col col-1>
+              <ion-icon style="font-size: 20px; color: #0081FF; margin-top: 10px" name="calendar" item-left></ion-icon>
+            </ion-col>
+            <ion-col>
+              <div style="margin-top: 10px;">
+                <input type="date" placeholder="Delivery Date" [(ngModel)]="deliveryDate">
+              </div>
+            </ion-col>
+            <ion-col>
+              <p style="color: #cccccc; font-size: 10px; margin: 15px 0px 0px 5px">Select Delivery Date</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-content>

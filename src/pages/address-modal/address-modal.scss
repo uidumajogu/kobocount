@@ -1,0 +1,45 @@
+page-address-modal {
+  .smb{
+    //width: 100%;
+    //padding: 10px;
+    //margin: 0px;
+    text-align: center !important;
+  }
+
+  .modal-page {
+       padding: 30px;
+       background: rgba(0,0,0,0.5);
+     }
+
+  .formModal {
+    //margin: 5px !important;
+    background-color: white !important;
+    padding: 0px;
+    min-height: 480px;
+  }
+
+  .block {
+    display: inline-block;
+    margin: 0px 15px 0px 15px;
+  }
+
+  ion-item ion-label {
+    color: #0081FF !important;
+  }
+
+  .mc {
+    background: white !important;
+  }
+
+  .btn {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  ion-item ion-icon {
+    color: #0081FF !important;
+  }
+
+}

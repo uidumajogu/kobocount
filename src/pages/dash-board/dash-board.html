@@ -1,0 +1,159 @@
+<ion-header no-border>
+  <ion-navbar transparent style="text-align: center;">
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col col-2>
+          <button ion-button no-padding no-margin menuToggle icon-only clear start>
+            <ion-icon name="menu" no-padding no-margin color="light"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col style="text-align: right;">
+          <h4 style="color: white !important; margin: 5px 10px 0px 0px; padding: 0px">{{ userProfile?.companyName }}</h4>
+        </ion-col>
+        <ion-col col-1></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="ionco">
+  <div class="hban">
+  <div (click)="summaryDetails()">
+    <br><br>
+        <p style="font-size: 12px; color: white; padding: 0px; margin: 0px">NET BALANCE</p>
+        <h4 class="hbal"><span [ngStyle]="{'color': summaryAmountcolor}">₦</span> {{netBalance | number:'1.2'}}</h4>
+        <br>
+    <br>
+        <ion-row>
+          <ion-col style="border-right: solid 0.5px lightsteelblue;">
+            <p style="color: #D8DFE8; font-size: 11px; padding: 0px; margin: 0px">SALES</p>
+            <h6 class="hdet" style="color: #D8DFE8;">₦{{totalSale | number:'1.2'}}</h6>
+          </ion-col>
+          <ion-col style="border-right: solid 0.5px lightsteelblue">
+            <p style="color: #D8DFE8; font-size: 11px; padding: 0px; margin: 0px">EXPENSES</p>
+            <h6 class="hdet" style="color: #D8DFE8;">₦{{totalExpense | number:'1.2'}}</h6>
+          </ion-col>
+          <ion-col>
+            <p style="color: #D8DFE8; font-size: 11px; padding: 0px; margin: 0px">UNPAID</p>
+            <h6 class="hdet" style="color: #D8DFE8;">₦{{totalUnpaid | number:'1.2'}}</h6>
+          </ion-col>
+        </ion-row>
+  </div>
+    <br><br>
+
+  <div style=" width: 100%">
+    <hr style="height:1px; border:none; background-color: #76A3E1; padding: 0px; margin: 10px 0px 0px 0px">
+    <ion-row no-margin no-padding style="margin: 0px 5px 0px 5px;">
+      <ion-col col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px"  (click)="dBackward()">
+        <ion-icon color="p-light" name="ios-arrow-back-outline"></ion-icon>
+      </ion-col>
+      <ion-col no-margin no-padding style="text-align: center; margin: 0px; ; padding: 15px 0px 15px 0px; color: white; font-size: 14px; font-weight: bold ">
+        {{dateDescription}}
+      </ion-col>
+      <ion-col *ngIf="!dFwdBtn" col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px">
+        <ion-icon color="p-light" name="ios-arrow-forward-outline"></ion-icon>
+      </ion-col>
+      <ion-col *ngIf="dFwdBtn" col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px" (click)="dFoward()">
+        <ion-icon color="p-light" name="ios-arrow-forward-outline"></ion-icon>
+      </ion-col>
+      <ion-col *ngIf="dFwdBtn" col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px">
+        <ion-icon color="light" name="ios-fastforward-outline" (click)="dFFoward()"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <ion-row no-margin no-padding style="margin: -5px 5px 0px 5px; border-radius: 10px; border: solid 1px white; background-color: white">
+      <ion-col [class.btnActive]="sYbtn" [class.btnInActive]="!sYbtn" no-margin no-padding
+               style="text-align: center; margin: 0px; border-radius: 10px" >
+        <button no-margin no-padding [class.btnColor]="sYbtn" style="text-transform: none; margin: 0px" ion-button clear small color="sk-blue"
+                (click)="yBtn(userProfile.companyId, 'Year', dYear)">Year</button>
+      </ion-col>
+      <ion-col no-margin no-padding [class.btnActive]="sMbtn" [class.btnInActive]="!sMbtn"
+               style="text-align: center; margin: 0px; border-radius: 10px">
+        <button no-margin no-padding [class.btnColor]="sMbtn" style="text-transform: none; font-weight: normal; margin: 0px" ion-button clear small color="sk-blue"
+                (click)="mBtn(userProfile.companyId, 'YearMonth', dYearMonth)">Month</button>
+      </ion-col>
+      <ion-col no-margin no-padding [class.btnActive]="sWbtn" [class.btnInActive]="!sWbtn"
+               style="text-align: center; margin: 0px; border-radius: 10px">
+        <button no-margin no-padding [class.btnColor]="sWbtn" style="text-transform: none; margin: 0px" ion-button small clear color="sk-blue"
+                (click)="wBtn(userProfile.companyId, 'Week', dWeek)">Week</button>
+      </ion-col>
+      <ion-col no-margin no-padding [class.btnActive]="sDbtn" [class.btnInActive]="!sDbtn"
+               style="text-align: center; margin: 0px; border-radius: 10px">
+        <button no-margin no-padding [class.btnColor]="sDbtn" style="text-transform: none; margin: 0px" ion-button small clear color="sk-blue"
+                (click)="dBtn(userProfile.companyId, 'Date', dDate)">Day</button>
+      </ion-col>
+    </ion-row>
+  </div>
+    <br><br><br>
+
+    <div *ngIf="noData" style="height: 150px; text-align: center">
+      <br>
+      <ion-icon name="stats" style="font-size: 45px; color: #76A3E1"></ion-icon>
+      <p style="color: #D8DFE8; font-size: 12px; font-weight: bold">No transactions for this period</p>
+    </div>
+    <div *ngIf="!noData">
+      <div *ngIf="oCData">
+        <canvas #chartCanvas height="150px"></canvas>
+      </div>
+
+      <div *ngIf="dCData" class="dailyCC">
+        <canvas #chartCanvasDaily></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-overlay" padding [hidden]="overlayHidden">
+    <button ion-button small clear></button>
+  </div>
+
+  <ion-fab #fab bottom center edge (click)="hideOverlay()">
+    <button ion-fab mini color="primary2"><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab color="danger1" (click)="goToExpensePage(fab)">
+        <ion-icon name="add-circle"></ion-icon>
+        <div class="label" style="color: #f37271">Add Expense</div>
+      </button>
+
+      <button ion-fab color="secondary1" (click)="goToSalesPage(fab)">
+        <ion-icon name="add-circle"></ion-icon>
+        <div class="label" style="color: #45b91f">Add Sale</div>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+
+
+</ion-content>
+
+<ion-footer transparent style="background-color: white">
+  <ion-toolbar transparent no-margin no-padding style="border-top: solid 2px #0081FF">
+    <ion-row no-margin no-padding>
+      <ion-col no-margin no-padding style="text-align: center;" (click)="goToTransactionsPage(fab)">
+        <ion-icon color="light2" name="apps" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">Transaction</p>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">Report</p>
+      </ion-col>
+
+      <ion-col no-margin no-padding style="text-align: center;" (click)="goToOutstandingPayments(fab)">
+        <ion-icon color="light2" name="logo-buffer" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">Outstanding</p>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">Payments</p>
+      </ion-col>
+
+      <ion-col col-2></ion-col>
+
+      <ion-col no-margin no-padding style="text-align: center;" (click)="goToGoodsOrServices(fab)">
+        <ion-icon color="light2" name="basket" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">Goods</p>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">or Services</p>
+      </ion-col>
+
+      <ion-col no-margin no-padding style="text-align: center;" (click)="goToTeamPage(fab)">
+        <ion-icon color="light2" name="people" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">My</p>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px; color: #2E77D8">Team</p>
+      </ion-col>
+
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

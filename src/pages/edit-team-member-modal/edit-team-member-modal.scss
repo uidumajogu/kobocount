@@ -1,0 +1,25 @@
+page-edit-team-member-modal {
+
+  ion-header{
+    background-color: #0081FF !important;
+  }
+
+  .modal-page {
+    padding: 2px !important;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .formModal {
+    margin: 0px !important;
+    background-color: white !important;
+    padding: 0px !important;
+  }
+
+  ion-grid, ion-row, ion-col {
+    padding-top: 0px !important;
+    margin-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+  }
+
+}

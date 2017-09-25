@@ -1,0 +1,53 @@
+page-total-discount-modal {
+
+  ion-content {
+    //overflow: hidden;
+
+    ion-grid, ion-row, ion-col {
+      padding: 0px !important;
+      margin: 0px !important;
+      font-size: 12px;
+    }
+  }
+
+  ion-item ion-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #03a9f4;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #4d4d4d;
+    text-align: center;
+  }
+
+  .modal-page {
+    padding: 30px !important;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .formModal {
+    margin: 0px !important;
+    background-color: white !important;
+    padding: 0px !important;
+    min-height: 500px;
+  }
+
+  .tdInput-wrapper {
+    position: relative;
+  }
+
+  .tdInput-wrapper:after {
+    position: absolute;
+    border: 1px solid #ccc;
+    border-top: none;
+    height: 5px;
+    width: 98%;
+    bottom: 6px;
+    left: 0;
+    content: "";
+  }
+
+}

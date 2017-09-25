@@ -1,0 +1,215 @@
+
+<ion-content padding>
+  <ion-slides [ngStyle]="{'height': slidesHeight}" (ionSlideWillChange)="slideChanged()">
+
+    <ion-slide>
+      <h3 style="color: white">Welcome</h3>
+      <h1 style="color: white">{{ userProfile?.companyName }}</h1>
+      <br>
+      <img class="mail" src="img/wsl.png">
+      <br><br>
+      <h3 style="color: ghostwhite">We are KoboCount!</h3>
+      <p style="color: ghostwhite; font-size: 16px">Nigeria's 100% cloud-based financial solution.
+        This is a simple solution to manage your business transactions, on the Go with your mobile phone.
+        With KoboCount you are always updated on your financial position.</p>
+      <br><br>
+      <p style="color: gainsboro; font-size: 14px">Complete your profile and open a world of easy book keeping</p>
+      <button ion-button block color="light" icon-right style="text-transform: none; margin-top: 20px; color: #0081FF" (click)="nextSlide()">
+        LET'S GO
+        <ion-icon name="arrow-dropright-circle"></ion-icon>
+      </button>
+    </ion-slide>
+
+    <ion-slide>
+      <h3 *ngIf='bTypeSelected===""'>In what industry is your Business?</h3>
+      <h3 *ngIf='bTypeSelected!=""'>Your Business Type</h3>
+      <br>
+      <ion-card>
+          <ion-item *ngIf='bTypeSelected===""'>
+            <a ion-button block full clear style="text-transform: none; color: blue" (click)="openBizTypeModal()">
+              <h2>Tap to enter Your Business Type</h2>
+            </a>
+          </ion-item>
+        <ion-item *ngIf='bTypeSelected!=""'>
+          <br>
+          <div style="margin: 20px; text-align: center">
+            <h2 style="color: #0081FF"><strong>{{bTypeSelected}}</strong></h2>
+          </div>
+          <hr>
+          <a ion-button clear style="float: right" (click)="openBizTypeModal()">
+            <h2 style="color: gray; font-size: 10px"><strong>EDIT</strong></h2>
+          </a>
+        </ion-item>
+      </ion-card>
+      <button *ngIf='bTypeSelected!=""' ion-button icon-right outline color="light" style="text-transform: none; float: right; margin-right: 40px; margin-top: 20px;" (click)="nextSlide()">
+        NEXT
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+    <ion-slide>
+      <h3 *ngIf='street===""'>What is your Business Address?</h3>
+      <h3 *ngIf='street!=""'>Your Business Address</h3>
+      <br><br><br>
+      <ion-card>
+        <ion-item *ngIf='street===""'>
+        <a ion-button block full clear style="text-transform: none; color: blue" (click)="openAddressModal()">
+          <h2>{{businessAddressQ}}</h2>
+        </a>
+        </ion-item>
+        <ion-item *ngIf='street!=""'>
+          <br>
+          <hr>
+          <div style="margin: 20px; text-align: justify">
+
+            <table style="width:100%">
+              <tr>
+                <td style="color: #0081FF; text-align: right"><strong>Street:</strong></td>
+                <td style="color: grey; text-indent: 1em">{{street}}</td>
+              </tr>
+              <br>
+              <tr>
+                <td style="color: #0081FF; text-align: right"><strong>City:</strong></td>
+                <td style="color: grey; text-indent: 1em">{{city}}</td>
+              </tr>
+              <br>
+              <tr>
+                <td style="color: #0081FF; text-align: right"><strong>State:</strong></td>
+                <td style="color: grey; text-indent: 1em">{{state}}</td>
+              </tr>
+              <br>
+              <tr>
+                <td style="color: #0081FF; text-align: right"><strong>Country:</strong></td>
+                <td style="color: grey; text-indent: 1em">{{country}}</td>
+              </tr>
+            </table>
+
+          </div>
+          <hr>
+          <a ion-button clear style="float: right" (click)="openAddressModal()">
+            <h2 style="color: gray; font-size: 10px"><strong>EDIT</strong></h2>
+          </a>
+        </ion-item>
+      </ion-card>
+      <button ion-button icon-left color="light" style="text-transform: none; float: left; margin-left: 40px; margin-top: 20px; color: #2979FF" (click)="previousSlide()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+        BACK
+      </button>
+      <button *ngIf='street!=""' ion-button icon-right outline color="light" style="text-transform: none; float: right; margin-right: 40px; margin-top: 20px;" (click)="nextSlide()">
+        NEXT
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+    <ion-slide>
+      <h3 *ngIf='phoneNumber===""'>What is your Mobile Phone Number?</h3>
+      <h3 *ngIf='phoneNumber!=""'>Your Mobile Phone Number</h3>
+      <br><br>
+      <ion-card>
+          <ion-item *ngIf='phoneNumber===""'>
+          <a ion-button block full clear style="text-transform: none; color: #0081FF" (click)="openPhoneNumberModal()">
+            <h2>Tap to enter your Phone Number</h2>
+          </a>
+        </ion-item>
+        <ion-item *ngIf='phoneNumber!=""'>
+          <br>
+          <div style="margin: 20px; text-align: center">
+            <h2 style="color: #0081FF"><strong>{{phoneNumber}}</strong></h2>
+          </div>
+          <hr>
+          <a ion-button clear style="float: right" (click)="openPhoneNumberModal()">
+            <h2 style="color: gray; font-size: 10px"><strong>EDIT</strong></h2>
+          </a>
+        </ion-item>
+      </ion-card>
+      <p style="font-style: italic; font-size: 8px">Don't worry, we'll never display it publicly.<br> Note that the phone number will be verified.</p>
+      <button ion-button icon-left color="light" style="text-transform: none; float: left; margin-left: 40px; margin-top: 20px; color: #2979FF" (click)="previousSlide()">
+        <ion-icon name="arrow-round-back"></ion-icon>
+        BACK
+      </button>
+      <button *ngIf='phoneNumber!=""' ion-button icon-right outline color="light" style="text-transform: none; float: left; margin-left: 40px; margin-top: 20px;" (click)="nextSlide()">
+        DONE
+        <ion-icon name="arrow-round-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+    <ion-slide>
+        <br>
+        <h3>Your Profile Details</h3>
+        <br>
+        <ion-card>
+          <ion-card-header style="background-color: aliceblue">
+            Business Type
+          </ion-card-header>
+          <br>
+          <ion-card-content>
+            <h2 style="color: #0081FF"><strong>{{bTypeSelected}}</strong></h2><br>
+            <hr>
+            <button ion-button clear style="float: right;" (click)="goToSlide1()">
+              <h2 style="color: gray; font-size: 10px"><strong>EDIT</strong></h2>
+            </button>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header style="background-color: aliceblue">
+            Business Address
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <div style="margin: 20px; text-align: justify">
+                <table style="width:100%">
+                  <tr>
+                    <td style="color: #0081FF; text-align: right"><strong>Street:</strong></td>
+                    <td style="color: grey; text-indent: 1em">{{street}}</td>
+                  </tr>
+                  <br>
+                  <tr>
+                    <td style="color: #0081FF; text-align: right"><strong>City:</strong></td>
+                    <td style="color: grey; text-indent: 1em">{{city}}</td>
+                  </tr>
+                  <br>
+                  <tr>
+                    <td style="color: #0081FF; text-align: right"><strong>State:</strong></td>
+                    <td style="color: grey; text-indent: 1em">{{state}}</td>
+                  </tr>
+                  <br>
+                  <tr>
+                    <td style="color: #0081FF; text-align: right"><strong>Country:</strong></td>
+                    <td style="color: grey; text-indent: 1em">{{country}}</td>
+                  </tr>
+                </table>
+              </div>
+              <br>
+              <hr>
+              <button ion-button clear style="float: right;" (click)="goToSlide2()">
+                <h2 style="color: gray; font-size: 10px"><strong>EDIT</strong></h2>
+              </button>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header style="background-color: aliceblue">
+            Mobile Phone Number
+          </ion-card-header>
+          <br>
+          <ion-card-content>
+            <h2 style="color: #0081FF"><strong>{{phoneNumber}}</strong></h2><br>
+            <hr>
+            <button ion-button clear style="float: right;" (click)="goToSlide3()">
+              <h2 style="color: gray; font-size: 10px"><strong>EDIT</strong></h2>
+            </button>
+          </ion-card-content>
+        </ion-card>
+      <div style="text-align: center">
+        <button *ngIf='phoneNumber!=""' ion-button icon-right color="light" style="text-transform: none; margin-right: 40px; margin-top: 20px; color: #0081FF" (click)="goToDash()">
+          GO TO YOUR DASHBOARD
+          <ion-icon name="arrow-round-forward"></ion-icon>
+        </button>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>
+

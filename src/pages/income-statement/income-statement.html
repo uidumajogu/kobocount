@@ -1,0 +1,289 @@
+<ion-header no-border>
+  <ion-navbar transparent>
+      <ion-row>
+        <ion-col col-2>
+          <button ion-button menuToggle style="margin-top: 10px">
+            <ion-icon name="menu" color="light"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col>
+          <h5 style="color: white">{{reportType}}</h5>
+        </ion-col>
+        <ion-col col-2>
+        </ion-col>
+      </ion-row>
+
+    <hr style="background-color: #76A3E1; color: #76A3E1; padding: 0px; margin: 0px">
+    <ion-row no-margin no-padding style="margin: 0px 5px 0px 5px;">
+      <ion-col col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px"  (click)="dBackward()">
+        <ion-icon color="p-light" name="ios-arrow-back-outline"></ion-icon>
+      </ion-col>
+      <ion-col no-margin no-padding style="text-align: center; margin: 0px; padding: 15px 0px 15px 0px; color: white; font-size: 14px; font-weight: bold">
+        {{periodDescription}}
+      </ion-col>
+      <ion-col *ngIf="!dFwdBtn" col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px">
+        <ion-icon color="p-light" name="ios-arrow-forward-outline"></ion-icon>
+      </ion-col>
+      <ion-col *ngIf="dFwdBtn" col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px" (click)="dFoward()">
+        <ion-icon color="p-light" name="ios-arrow-forward-outline"></ion-icon>
+      </ion-col>
+      <ion-col *ngIf="dFwdBtn" col-2 no-margin no-padding style="text-align: center; margin: 0px; padding: 15px">
+        <ion-icon color="light" name="ios-fastforward-outline" (click)="dFFoward()"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+
+  <div style=" padding: 5px; margin-top: -10px">
+    <ion-row no-margin no-padding style="border-radius: 10px; border: solid 1px white; background-color: white;">
+      <ion-col [class.btnActive]="sYbtn" [class.btnInActive]="!sYbtn" no-margin no-padding
+               style="text-align: center; margin: 0px; border-radius: 10px" >
+        <button no-margin no-padding [class.btnColor]="sYbtn" style="text-transform: none; margin: 0px" ion-button clear small color="sk-blue"
+                (click)="yBtn(userProfile.companyId, 'Year', dYear)">Year</button>
+      </ion-col>
+      <ion-col no-margin no-padding [class.btnActive]="sMbtn" [class.btnInActive]="!sMbtn"
+               style="text-align: center; margin: 0px; border-radius: 10px">
+        <button no-margin no-padding [class.btnColor]="sMbtn" style="text-transform: none; font-weight: normal; margin: 0px" ion-button clear small color="sk-blue"
+                (click)="mBtn(userProfile.companyId, 'YearMonth', dYearMonth)">Month</button>
+      </ion-col>
+      <ion-col no-margin no-padding [class.btnActive]="sWbtn" [class.btnInActive]="!sWbtn"
+               style="text-align: center; margin: 0px; border-radius: 10px">
+        <button no-margin no-padding [class.btnColor]="sWbtn" style="text-transform: none; margin: 0px" ion-button small clear color="sk-blue"
+                (click)="wBtn(userProfile.companyId, 'Week', dWeek)">Week</button>
+      </ion-col>
+      <ion-col no-margin no-padding [class.btnActive]="sDbtn" [class.btnInActive]="!sDbtn"
+               style="text-align: center; margin: 0px; border-radius: 10px">
+        <button no-margin no-padding [class.btnColor]="sDbtn" style="text-transform: none; margin: 0px" ion-button small clear color="sk-blue"
+                (click)="dBtn(userProfile.companyId, 'Date', dDate)">Day</button>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-header>
+
+
+
+<ion-content padding class="ionco">
+
+
+
+  <div *ngIf="cashRpt">
+    <br>
+    <div style="background-color: whitesmoke; text-transform: uppercase; padding: 20px 0px 3px 10px; margin: 0px;
+                        color: #0081ff; font-size: 12px; font-weight: bold; border-bottom: solid 2px #D3D0D2">
+      <p style="margin: 0px; padding: 0px">Sales</p>
+    </div>
+
+
+    <div style="padding: 5px; border-bottom: solid 1px #D3D0D2"
+         [ngClass]="{'bgColor' :(true)}">
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col col-4 style="font-size: 12px; color: #777;">
+          Cash:
+        </ion-col>
+        <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+          ₦{{cashSale | number:'1.2'}}
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </div>
+
+
+    <div style="padding: 5px; border-bottom: solid 1px #D3D0D2"
+         [ngClass]="{'bgColor' :(false)}">
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col col-4 style="font-size: 12px; color: #777;">
+          Transfer To Bank:
+        </ion-col>
+        <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+          ₦{{transferSale | number:'1.2'}}
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </div>
+
+    <div style="padding: 5px; border-bottom: solid 1px #D3D0D2"
+         [ngClass]="{'bgColor' :(true)}">
+      <ion-row>
+        <ion-col></ion-col>
+        <ion-col col-4 style="font-size: 12px; color: #777;">
+          POS:
+        </ion-col>
+        <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+          ₦{{POSSale | number:'1.2'}}
+        </ion-col>
+        <ion-col></ion-col>
+      </ion-row>
+    </div>
+
+    <div style="padding: 2px;">
+      <ion-row>
+        <ion-col col-5 style="font-size: 12px; font-weight: bold; text-transform: capitalize; color: #777; padding-left: 8px">
+          Total Sales
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #777">
+          ₦{{totalCashRpt | number:'1.2'}}
+        </ion-col>
+      </ion-row>
+    </div>
+    <hr style="background-color: #0081ff; color: #0081ff">
+
+  </div>
+
+  <div *ngIf="miniStmt">
+    <div style="background-color: whitesmoke; text-transform: uppercase; padding: 20px 0px 3px 10px; margin: 0px;
+                        color: #0081ff; font-size: 12px; font-weight: bold; border-bottom: solid 2px #D3D0D2">
+      <p style="margin: 0px; padding: 0px">Sales</p>
+    </div>
+
+
+    <div *ngFor="let sale of saleStmt; let i = index" style="padding: 5px; border-bottom: solid 1px #D3D0D2"
+              [ngClass]="{'bgColor' :(i % 2 != 0)}">
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col col-4 style="font-size: 12px; color: #777; text-align: right">
+            {{sale.category}}
+          </ion-col>
+          <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+            ₦{{sale.totalAmount | number:'1.2'}}
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+    </div>
+
+  <div *ngIf="saleTotal != 0" style="padding: 0px;">
+    <ion-row>
+      <ion-col col-5 style="font-size: 12px; text-transform: capitalize; color: #777; padding-left: 8px">
+        Subtotal
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+        ₦{{saleSubtotal | number:'1.2'}}
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div *ngIf="saleTotal!= 0" style="padding: 0px;">
+    <ion-row>
+      <ion-col col-5 style="font-size: 12px; text-transform: capitalize; color: #777; padding-left: 8px">
+        Discount
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+        (₦{{saleDiscount | number:'1.2'}})
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div *ngIf="saleTotal!= 0" style="padding: 0px;">
+    <ion-row>
+      <ion-col col-5 style="font-size: 12px; text-transform: capitalize; color: #777; padding-left: 8px">
+        Shipping
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+        ₦{{this.saleShipping | number:'1.2'}}
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div style="padding: 2px;">
+    <ion-row>
+      <ion-col col-5 style="font-size: 12px; font-weight: bold; text-transform: capitalize; color: #777; padding-left: 8px">
+        Total Sales
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #777">
+        ₦{{saleTotal | number:'1.2'}}
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+  <div style="background-color: whitesmoke; text-transform: uppercase; padding: 20px 0px 3px 10px; margin: 0px;
+                        color: #0081ff; font-size: 12px; font-weight: bold; border-bottom: solid 2px #D3D0D2">
+    <p style="margin: 0px; padding: 0px">Expenses</p>
+  </div>
+
+  <div *ngFor="let exp of expStmt; let i = index" style="padding: 5px; border-bottom: solid 1px #D3D0D2"
+       [ngClass]="{'bgColor' :(i % 2 != 0)}">
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col col-4 style="font-size: 12px; color: #777; text-align: right">
+        {{exp.category}}
+      </ion-col>
+      <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; color: #777">
+        ₦{{exp.totalAmount | number:'1.2'}}
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+  </div>
+
+  <div style="padding: 2px;">
+    <ion-row>
+      <ion-col col-5 style="font-size: 12px; font-weight: bold; text-transform: capitalize; color: #777; padding-left: 8px">
+        Total Expenses
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #777">
+        ₦{{expenseTotal | number:'1.2'}}
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <br>
+  <hr style="background-color: #0081ff; color: #0081ff">
+  <div style="padding: 2px;">
+    <ion-row>
+      <ion-col col-5 style="font-size: 12px; font-weight: bold; text-transform: capitalize; color: #0081ff; padding-left: 8px">
+        Net Income(Loss)
+      </ion-col>
+      <ion-col></ion-col>
+      <ion-col col-4 style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #0081ff">
+        <span *ngIf="netIncome >= 0">₦{{netIncome | number:'1.2'}}</span>
+        <span *ngIf="netIncome < 0">(₦{{-1 * netIncome | number:'1.2'}})</span>
+      </ion-col>
+    </ion-row>
+  </div>
+  <hr style="background-color: #0081ff; color: #0081ff">
+
+  <br>
+
+  <div style="padding: 0px 0px 0px 2px;">
+    <ion-row no-margin no-padding>
+      <ion-col col-5 no-margin no-padding style="font-size: 12px; font-weight: bold; text-transform: capitalize; color: #777; padding-left: 8px">
+        VAT
+      </ion-col>
+      <ion-col no-margin no-padding ></ion-col>
+      <ion-col col-4 no-margin no-padding style="font-size: 12px; text-align: right; padding-right: 5px; font-weight: bold; color: #777">
+        ₦{{saleVAT | number:'1.2'}}
+      </ion-col>
+    </ion-row>
+  </div>
+  <hr style="background-color: #D3D0D2; color: #D3D0D2">
+  </div>
+
+</ion-content>
+
+
+<ion-footer transparent style="background-color: white">
+  <ion-toolbar transparent no-margin no-padding style="border-top: solid 2px #0081FF">
+    <ion-row no-margin no-padding>
+      <ion-col no-margin no-padding style="text-align: center;" [ngClass]="{'activeTabColor' :(miniStmt), 'inactiveTabColor' :(!miniStmt)}"
+               (click)="generateMiniStatement()">
+        <ion-icon name="paper" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px;">Mini</p>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px;">Statement</p>
+      </ion-col>
+
+      <ion-col no-margin no-padding style="text-align: center;" [ngClass]="{'activeTabColor' :(cashRpt), 'inactiveTabColor' :(!cashRpt)}"
+               (click)="generateCashReport()">
+        <ion-icon name="calculator" style="font-size: 30px"></ion-icon>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px;">Cash</p>
+        <p style="font-size: 7px; font-weight: bold; padding: 0px; margin: 0px;">Report</p>
+      </ion-col>
+
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

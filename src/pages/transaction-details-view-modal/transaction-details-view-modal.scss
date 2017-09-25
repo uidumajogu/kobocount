@@ -1,0 +1,118 @@
+page-transaction-details-view-modal {
+
+  .modal-page {
+    padding: 5px !important;
+    background: rgba(0,0,0,0.5);
+  }
+
+  .formModal {
+    //margin: 5px !important;
+    background-color: white !important;
+    padding: 0px !important;
+    min-height: 480px;
+  }
+
+  .invoice-box{
+    //max-width:800px;
+    margin:20px 3px 0px 3px;
+    padding:5px 5px 10px 5px;
+    border:1px solid #0081FF;
+    box-shadow:0 0 10px rgba(0, 0, 0, .15);
+    font-size:10px;
+    font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #333;
+    min-height: 500px;
+  }
+
+  .invoice-box p {
+    padding: 1px;
+    margin: 0px;
+  }
+
+  .pymt-box{
+    //max-width:800px;
+    margin:10px 3px 0px 3px;
+    //border:1px solid #0081FF;
+    //box-shadow:0 0 10px rgba(0, 0, 0, .15);
+    font-size:8px !important;
+    font-family:'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+    color: #333;
+    //min-height: 500px;
+  }
+
+
+  .pymt-box ion-grid, .pymt-box ion-row, .pymt-box ion-col {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  ion-header ion-navbar ion-grid, ion-header ion-navbar ion-row, ion-header ion-navbar ion-col {
+    margin: 0px;
+    padding: 0px;
+  }
+
+
+  .invoice-box ion-grid.gnm, .invoice-box ion-grid.gnm ion-row, .invoice-box ion-grid.gnm ion-col {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+
+  .cdBox ion-grid, .cdBox ion-row, .cdBox ion-col, .cdBoxion-item {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+
+  .invoice-box ion-row.heading{
+    background:#444;
+    border-bottom:1px solid #ddd;
+    font-weight:bold;
+    text-align: left;
+    color: white;
+  }
+
+  .invoice-box ion-row.info{
+    text-align: left;
+  }
+
+  .invoice-box ion-row.totals{
+    text-align: right;
+  }
+
+  .invoice-box ion-row.totals2{
+    text-align: right;
+    font-weight: bold;
+  }
+
+  .saleCol {
+    color: #0081FF;
+  }
+
+  .expCol {
+    color: #FD6B72;
+  }
+
+  .saleLineCol {
+    //color: #0081FF;
+    //background-color: #0081FF;
+  }
+
+  .expLineCol {
+    //color: #FD6B72;
+    //background-color: #FD6B72;
+  }
+
+
+  .headerHr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+  }
+
+}

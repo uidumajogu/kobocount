@@ -1,0 +1,323 @@
+<ion-header>
+  <ion-navbar color="primary2" style="text-align: center">
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col col-4>
+          <button ion-button menuToggle start>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col col-4>
+          <ion-title>Add Sale
+            <p style="margin: 0px"><strong style="color: #1414ff ; font-size: 10px">{{currentDate | date:'dd-MMM-yyyy'}}</strong></p>
+          </ion-title>
+        </ion-col>
+        <ion-col col-4>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-navbar>
+  <ion-grid no-padding>
+    <ion-row style="background-color: blue ">
+      <ion-col style="border-right: solid #03a9f4;">
+        <button ion-button block clear color="light" (click)="cancelSale()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="close" item-left></ion-icon>
+          CANCEL
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button block clear color="light" (click)="submitSale()">
+          <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="checkmark" item-left></ion-icon>
+          DONE
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+
+<br>
+<ion-content style="background-color: ghostwhite">
+  <p *ngIf="submitSaleButtonInvalid" style="text-align: center; font-size: 10px; color: red">You have not entered any Sale</p>
+  <p *ngIf="submitSaleButtonInvalidSaleNFP" style="text-align: center; font-size: 10px; color: red">Since sale is not Fully PAID, you need to enter the customer details</p>
+  <div style="padding-top: 2px ; border: dotted 0.5px #0081ff; margin: 5px 5px 0px 5px; background-color: white; border-radius: 5px">
+
+    <ion-list no-padding no-margin style="margin-left: 10px">
+      <ion-item *ngFor="let item of saleItems" [ngClass]="{'itemColor': item.itemClass}" (click)="openAddSaleItemModal(item)">
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <h2 style="text-align: left; font-weight: bold">{{item.description}}</h2>
+            </ion-col>
+            <ion-col>
+              <h3 style="text-align: right">{{item.quantity}} x ₦{{item.unitPrice | number:'1.2'}}</h3>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngIf="item.saleDiscountTag">
+              <h4 style="text-align: left">Discount Per Item: ({{item.saleDiscountAmount}}{{item.saleDiscountType}})</h4>
+            </ion-col>
+            <ion-col *ngIf="!item.saleDiscountTag">
+              <h4 style="text-align: left">Discount Per Item: {{item.saleDiscountType}}</h4>
+            </ion-col>
+            <ion-col>
+              <h4 style="text-align: right">₦{{item.saleDiscount | number:'1.2'}}</h4>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+        <h3 style="text-align: right; font-weight: bold">₦{{(item.quantity*item.unitPrice)- item.saleDiscount | number:'1.2'}}</h3>
+      </ion-item>
+    </ion-list>
+
+    <div style="background-color: whitesmoke; padding: 0px 10px 0px 10px; margin: 0px 1px 0px 1px">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label style="text-align: left; font-weight: bold">Sub Total</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label style="text-align: right; font-weight: bold">₦{{saleSubTotal | number:'1.2'}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <ion-grid>
+      <ion-row (click)="openTotalDiscountModal()">
+        <ion-col col-7>
+          <ion-label no-padding no-margin style="padding: 15px 0px 0px 10px;">General Discount:
+            <span *ngIf="saleGDiscountAddButton" style="font-size: 10px; color: #cccccc; font-weight: Bold">Add</span>
+            <span *ngIf="!saleGDiscountAddButton" style="font-size: 10px; color: #cccccc; font-weight: Bold">Edit</span></ion-label>
+        </ion-col>
+        <ion-col col-5>
+          <ion-label no-padding no-margin style="padding: 15px 20px 0px 10px; text-align: right">₦{{globalSaleDiscount | number:'1.2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p *ngIf="totalDiscountInputInvalid" style="text-align: center; font-size: 10px; color: red">You cannot add discount to Zero Sales</p>
+
+    <ion-grid>
+      <ion-row (click)="openShippingModal()">
+        <ion-col col-7>
+          <ion-label no-padding no-margin style="padding: 15px 0px 0px 10px;">Shipping:
+            <span *ngIf="saleShippingAddButton" style="font-size: 10px; color: #cccccc; font-weight: Bold">Add</span>
+            <span *ngIf="!saleShippingAddButton" style="font-size: 10px; color: #cccccc; font-weight: Bold">Edit</span></ion-label>
+        </ion-col>
+        <ion-col col-5>
+          <ion-label no-padding no-margin style="padding: 15px 20px 0px 10px; text-align: right">
+            <!--<span *ngIf="shippingVATTag" style="font-size: 8px; color: red;">(VAT Inc) </span>-->
+            ₦{{saleShipping | number:'1.2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <p *ngIf="saleShippingInputInvalid" style="text-align: center; font-size: 10px; color: red">You cannot add Shipping Fee to Zero Sales</p>
+
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-2>
+          <ion-label no-padding no-margin style="padding: 15px 0px 0px 10px;">VAT</ion-label>
+        </ion-col>
+        <ion-col col-5>
+          <ion-toggle color="p-light" style="float: left; padding-left: 1px;" [(ngModel)]="toggleSaleVATValue" (ionChange)="calcSaleVAT()"></ion-toggle>
+        </ion-col>
+        <ion-col col-5>
+            <ion-label no-padding no-margin style="margin-right: 20px; padding-top: 15px; text-align: right">₦{{saleVAT | number:'1.2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <div style="background-color: #c9c9c9; padding: 0px 10px 0px 10px; margin: 5px 1px 0px 1px">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-7>
+          <ion-label style="text-align: left; font-weight: bold">Total:</ion-label>
+        </ion-col>
+        <ion-col col-5>
+          <ion-label style="text-align: right; font-weight: bold">₦{{saleTotal | number:'1.2'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-7>
+        <ion-label no-padding no-margin style="padding: 15px 0px 0px 10px;" (click)="openPaidSaleModal()">Amount Paid:
+        <span *ngIf="paidSaleConfirmButton" style="font-size: 10px; color: #cccccc; font-weight: Bold">Confirm</span>
+        <span *ngIf="!paidSaleConfirmButton" style="font-size: 10px; color: #cccccc; font-weight: Bold">Edit</span></ion-label>
+      </ion-col>
+      <ion-col col-5>
+        <ion-label no-padding no-margin style="margin-right: 20px; padding: 15px 0px 10px 0px; text-align: right; font-weight: bold">₦{{paidSaleTotal | number:'1.2'}}</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+    <p *ngIf="salePaymentInvalid" style="text-align: center; font-size: 10px; color: red">You cannot add Payment to Zero Sales</p>
+
+    <div style="background-color: blue; padding: 0px 10px 0px 10px; margin: 5px 1px 1px 1px; border-radius: 0px 0px 5px 5px">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label style="text-align: left; font-weight: bold; color: white">Balance Due</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label style="text-align: right; font-weight: bold; color: white">₦{{saleTotalDue | number:'1.2'}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <br>
+  <div *ngIf="!openCD" style="padding: 0px; margin: 0px 5px 5px 5px">
+  <button ion-button full color="primary2" style="border-radius: 5px" (click)="openCDButton()">Customer Details</button>
+  </div>
+  <div *ngIf="openCD" style="padding: 5px ; border: dotted 0.5px #03a9f4; margin: 0px 5px 5px 5px; background-color: white; border-radius: 5px">
+    <button ion-button full color="primary2" style="border-radius: 5px" (click)="openCDButton()">Customer Details</button>
+    <div style="padding: 5px; margin: 10px 10px 10px 10px; background-color: white">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="person" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px;" type="text" placeholder="Customers' Name" [(ngModel)]="customerName"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="call" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="tel" placeholder="Customers' Phone Number" [(ngModel)]="customerPhoneNumber"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="mail" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="email" placeholder="Customers' Email" [(ngModel)]="customerEmail"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div *ngIf="!openDD" style="padding: 0px; margin: 0px 5px 50px 5px">
+  <button ion-button full color="p-grey" style="border-radius: 5px" (click)="openDDButton()">Delivery Details</button>
+  </div>
+  <div *ngIf="openDD" style="padding: 5px ; border: dotted 0.5px #03a9f4; margin: 10px 5px 50px 5px; background-color: white; border-radius: 5px">
+    <button ion-button full color="p-grey" style="border-radius: 5px" (click)="openDDButton()">Delivery Details</button>
+    <div style="padding: 5px; margin: 10px 10px 10px 10px; background-color: white">
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="bicycle" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Street 1" [(ngModel)]="dStreet1"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="bicycle" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Street 2" [(ngModel)]="dStreet2"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="bus" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="City" [(ngModel)]="dCity"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="train" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="State" [(ngModel)]="dState"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 18px; color: #03a9f4; margin-top: 10px" name="train" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <ion-input style="border-bottom: solid 1px lavender; padding: 0px; margin: 0px" type="text" placeholder="Country" [(ngModel)]="dCountry"></ion-input>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-1>
+            <ion-icon style="font-size: 20px; color: #03a9f4; margin-top: 10px" name="calendar" item-left></ion-icon>
+          </ion-col>
+          <ion-col>
+            <div style="margin-top: 10px;">
+              <input id="deliveryDate" placeholder="Delivery Date">
+            </div>
+          </ion-col>
+          <ion-col>
+            <p style="color: #cccccc; font-size: 10px; margin: 15px 0px 0px 5px">Select Delivery Date</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+
+  <div class="my-overlay" padding [hidden]="overlayHidden">
+    <button clear style="z-index: 1"></button>
+  </div>
+
+  <ion-fab right bottom (click)="hideOverlay()">
+    <button ion-fab color="primary2"><ion-icon name="apps"></ion-icon></button>
+    <ion-fab-list side="top">
+
+      <button ion-fab color="d-grey" (click)="goToHomePage()">
+        <ion-icon name="home"></ion-icon>
+        <div class="label" style="color: white">Summary</div>
+      </button>
+
+      <button ion-fab color="p-light" (click)="goToTransactionsPage()">
+        <ion-icon name="cloud-circle"></ion-icon>
+        <div class="label" style="color: #03a9f4"> View Transactions</div>
+      </button>
+
+      <button ion-fab color="danger2" (click)="goToExpensePage()">
+        <ion-icon name="add-circle"></ion-icon>
+        <div class="label" style="color: red">Add Expense</div>
+      </button>
+
+    </ion-fab-list>
+  </ion-fab>
+
+</ion-content>

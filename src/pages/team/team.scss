@@ -1,0 +1,35 @@
+page-team {
+
+  ion-grid, ion-row, ion-col {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  ion-item, ion-list {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  .bgColor {
+    background-color: #fbfbfb;
+  }
+
+  .isAdminColor {
+    color: #0081FF;
+  }
+
+  .isNotAdminColor {
+    color: #8995A5;
+  }
+
+  .ttabBtnCol {
+    color: #0081FF;
+  }
+
+  .ttabBtnColdef {
+    color: #D8DFE8;
+  }
+
+}

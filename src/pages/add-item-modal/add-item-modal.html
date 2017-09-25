@@ -1,0 +1,172 @@
+
+<!--<ion-content padding=" class="modal-page">-->
+<ion-header>
+    <ion-navbar>
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col>
+            <ion-title style="text-align: center; font-size: 11px; color: #0081ff">Add Sale Item</ion-title>
+          </ion-col>
+          <ion-col col-1 *ngIf="saleItemUpdate">
+              <ion-icon name="trash" style="color: red; font-size: 24px" (click)="deleteSaleItem('Delete')"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-navbar>
+
+    <ion-grid no-padding>
+      <ion-row style="background-color: #0081ff">
+        <ion-col style="border-right: solid white;">
+          <button ion-button block clear color="light" (click)="closeSaleItemModal()">
+            <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="arrow-back" item-left></ion-icon>
+            BACK
+          </button>
+        </ion-col>
+        <ion-col *ngIf="saleItemUpdate">
+          <button ion-button block clear color="light" (click)="updateSaleItem('Update')">
+            <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="checkmark" item-left></ion-icon>
+            UPDATE
+          </button>
+        </ion-col>
+        <ion-col *ngIf="saleItemSave">
+          <button ion-button block clear color="light" (click)="addSaleItem('Add')">
+            <ion-icon style="font-size: 30px; margin-right: 10px" color="light" name="checkmark" item-left></ion-icon>
+            ADD
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-header>
+
+    <ion-content padding style="color: #444444;">
+      <br>
+          <!--<ion-row>-->
+            <!--<ion-col>-->
+              <!--<div class="input-wrapper">-->
+              <!--<button *ngIf="dReadOnly" ion-button no-padding clear style="color: #cccccc; text-transform: none; font-size: 12px;" (click)="openItemsLoaded()">Select or Add Item</button>-->
+              <!--<ion-input no-padding *ngIf="!dReadOnly" type="text" placeholder="Add new item" [(ngModel)]="siDescription"-->
+                         <!--(click)="openItemsLoaded()" (input)="activateAddItemButton()"></ion-input>-->
+              <!--</div>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3 *ngIf="selectItemButton" style="text-align: right;">-->
+              <!--<button ion-button small no-margin color="p-light" style="margin: 20px 5px 0px 0px; font-size: 8px; font-weight: bold;" (click)="openItemsLoaded()">Or Select</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col col-3 *ngIf="changeItemButton" style="text-align: right;">-->
+              <!--<button ion-button small no-margin color="p-light" style="margin: 20px 5px 0px 0px; font-size: 8px; font-weight: bold;" (click)="openItemsLoaded()">Change</button>-->
+            <!--</ion-col>-->
+          <!--</ion-row>-->
+      <!--<p *ngIf="!descriptionValid" style="color: red; font-size: 12px;padding: 0px; margin: 0px; text-align: center">Item Description is required</p>-->
+
+      <ion-row>
+        <ion-col>
+          <div class="input-wrapper">
+            <!--<button *ngIf="dReadOnly" ion-button no-padding clear style="color: #cccccc; text-transform: none; font-size: 12px;" (click)="openItemsLoaded()">Select or Add Item</button>-->
+            <ion-input no-padding type="text" placeholder="Add new item" [(ngModel)]="siDescription"></ion-input>
+          </div>
+        </ion-col>
+        <ion-col col-1 style="text-align: left">
+          <ion-icon name="md-arrow-dropdown" color="primary2" style="font-size: 40px" (click)="presentMyItemsPopover()"></ion-icon>
+        </ion-col>
+      </ion-row>
+      <p *ngIf="!descriptionValid" style="color: red; font-size: 12px;padding: 0px; margin: 0px; text-align: center">Item Description is required</p>
+
+
+
+
+      <!--<div *ngIf="itemsLoaded" style="border: solid 1px lavender; margin-right: 3px; background-color: aliceblue">-->
+        <!--&lt;!&ndash;<p style="font-size: 13px; color: #cccccc; font-weight: bold; text-align: center; padding: 2px; margin: 0px; background-color: lavender">Select</p>&ndash;&gt;-->
+        <!--<ion-list inset>-->
+          <!--<ion-item *ngFor="let item of aiMyItems" style="background-color: transparent; border: lavender"-->
+                   <!--(click)="submitSelectedItem(aiMyItems.indexOf(item))">-->
+
+            <!--&lt;!&ndash;<ion-icon style="font-size: 12px; color: blue; padding: 0px; margin: 0px" name="radio" item-start></ion-icon>&ndash;&gt;-->
+
+            <!--<p class="no-padding" style="font-size: 12px; color: #03a9f4; font-weight: bold;">{{item.description}}</p>-->
+            <!--<p class="no-padding" style="font-size: 10px; color: #6b6b6b;">{{item.stock}}-->
+                <!--<span *ngIf="item.stock">in stock</span></p>-->
+          <!--</ion-item>-->
+        <!--</ion-list>-->
+      <!--</div>-->
+      <br>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-7>
+            <ion-label>Unit Price:</ion-label>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col col-5>
+            <div class="input-wrapper">
+              <ion-input no-padding type="number" placeholder="0" [(ngModel)]="siUnitPrice" (input)="checkInvalids()"></ion-input>
+            </div>
+          </ion-col>
+        </ion-row>
+        <p *ngIf="!unitPriceValid" style="color: red; font-size: 12px; padding: 0px; margin: 0px; text-align: right">Unit Price is required</p>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-7>
+            <ion-label>Quantity:</ion-label>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col col-5>
+            <div class="input-wrapper">
+              <ion-input no-padding type="number" [(ngModel)]="siQuantity"></ion-input>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid *ngIf="!discountInput">
+        <ion-row>
+          <ion-col col-7>
+            <ion-label>Discount:</ion-label>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col col-5>
+            <div class="input-wrapper">
+              <ion-label no-padding style="text-align: center; font-size: 10px; color: #cccccc" (click)="openDiscountModal()">Add Discount</ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid *ngIf="discountInput">
+        <ion-row>
+          <ion-col col-7>
+            <ion-label>Discount:
+              <span *ngIf="discountInput" style="color: blue; font-size: 10px; font-weight: bold" (click)="openDiscountModal()">({{discountType}})</span></ion-label>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col col-5>
+            <div class="input-wrapper">
+              <ion-input no-padding type="number" [(ngModel)]="siDiscountAmount"></ion-input>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col col-5>
+            <ion-label style="font-weight: bold">Amount:</ion-label>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+          <ion-col col-5>
+            <ion-label *ngIf="!percentageTag" style="font-weight: bold; text-align: right">
+              ₦{{(siUnitPrice * siQuantity) - siDiscountAmount | number:'1.2'}}</ion-label>
+            <ion-label *ngIf="percentageTag" style="font-weight: bold; text-align: right">
+              ₦{{(siUnitPrice * siQuantity) - (siDiscountAmount * (siUnitPrice * siQuantity)/100) | number:'1.2'}}</ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p *ngIf="!totalPriceValid" style="color: red; font-size: 12px; padding: 0px; margin: 0px; text-align: right">
+        Total Price must be greater than zero</p>
+
+    </ion-content>
+<!--</ion-content>-->

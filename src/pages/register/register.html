@@ -1,0 +1,87 @@
+
+<ion-header>
+  <ion-navbar transparent style="border-bottom: solid 2px white">
+    <ion-title>
+      <h5 style="color: white">Register</h5>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <!--<img class="siLogo" src="img/logo.png">-->
+  <br>
+
+<form [formGroup]="registerForm" (submit)="register()" novalidate>
+  <div class="lgf">
+    <ion-item>
+      <ion-label floating>Full Name</ion-label>
+      <ion-icon name="person" item-right></ion-icon>
+      <ion-input formControlName="fullName" type="text"
+                 [class.invalid]="!registerForm.controls.fullName.valid && registerForm.controls.fullName.dirty">
+      </ion-input>
+    </ion-item>
+    <ion-item no-lines class="error-message"
+              *ngIf="!registerForm.controls.fullName.valid  && registerForm.controls.fullName.dirty">
+      <p style="color: #FD6B72">Why don't you want to tell us your name?</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Company Name</ion-label>
+      <ion-icon name="briefcase" item-right></ion-icon>
+      <ion-input formControlName="companyName" type="text"
+                 [class.invalid]="!registerForm.controls.companyName.valid && registerForm.controls.companyName.dirty">
+      </ion-input>
+    </ion-item>
+    <ion-item no-lines class="error-message"
+              *ngIf="!registerForm.controls.companyName.valid  && registerForm.controls.companyName.dirty">
+      <p style="color: #FD6B72">Hey, you need a company name</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input formControlName="email" type="email"
+                 [class.invalid]="!registerForm.controls.email.valid && registerForm.controls.email.dirty">
+      </ion-input>
+      <ion-icon name="at" item-right></ion-icon>
+    </ion-item>
+    <ion-item no-lines class="error-message"
+              *ngIf="!registerForm.controls.email.valid  && registerForm.controls.email.dirty">
+      <p style="color: #FD6B72">Please enter a valid email.</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input formControlName="password" type={{registerPasswordInputType}}
+                 [class.invalid]="!registerForm.controls.password.valid && registerForm.controls.password.dirty">
+      </ion-input>
+      <ion-icon name={{registerPasswordFieldIcon}} item-right></ion-icon>
+    </ion-item>
+    <ion-item no-lines class="error-message"
+              *ngIf="!registerForm.controls.password.valid  && registerForm.controls.password.dirty">
+      <p style="color: #FD6B72">Your password needs more than 6 characters.</p>
+    </ion-item>
+
+    <ion-item no-lines>
+      <ion-label style="padding: 0px; font-size: 12px">Show Password</ion-label>
+      <ion-checkbox style="margin: 3px" checked={{toggleRegisterPasswordInputType}} (click)="showHideRegisterPassword()"></ion-checkbox>
+    </ion-item>
+  </div>
+  <br><br>
+  <p style="text-align: center; color: #333">By proceeding to Register, you agree to our<br> <a>Licence Agreement</a> and <a>Privacy Statement</a></p>
+  <div class="smb">
+    <button ion-button block type="submit" color="light" style="color: #2979FF"
+            [disabled]="!registerForm.valid">
+      CREATE AN ACCOUNT
+    </button>
+  </div>
+</form>
+</ion-content>
+
+<ion-footer no-border>
+  <ion-toolbar no-margin no-padding color="primary2" style="text-align: center">
+    <button ion-button clear color="light" style="font-size: 12px" (click)="goToSignIn()">
+      Already Registered?
+    </button>
+  </ion-toolbar>
+</ion-footer>

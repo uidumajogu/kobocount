@@ -1,0 +1,34 @@
+page-my-category-modal {
+
+  .modal-page {
+    padding: 2px !important;
+    background: rgba(0,0,0,0.5);
+  }
+
+  div {
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper:after {
+      position: absolute;
+      border: 1px solid #ccc;
+      border-top: none;
+      height: 5px;
+      width: 98%;
+      bottom: 6px;
+      left: 0;
+      content: "";
+      font-size: 12px;
+    }
+  }
+
+  ion-label {
+    color: #6b6b6b;
+  }
+
+  ion-input {
+    color: #0081ff;
+  }
+
+}
