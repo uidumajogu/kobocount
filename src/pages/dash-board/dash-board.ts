@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, App, LoadingController, FabContainer} from 'ionic-angular';
+import {IonicPage, NavController, LoadingController, FabContainer} from 'ionic-angular';
 import {TeamProvider} from "../../providers/team/team";
 import {DateFsProvider} from "../../providers/date-fs/date-fs";
 import { Chart } from 'chart.js';
@@ -70,7 +70,7 @@ export class DashBoardPage {
 
 
   constructor(private navCtrl: NavController, private teamProvider: TeamProvider,
-              private app: App, private loadingCtrl: LoadingController, private dfs: DateFsProvider,
+              private loadingCtrl: LoadingController, private dfs: DateFsProvider,
               private transactionProvider: TransactionsProvider) {}
 
   ionViewDidLoad() {
