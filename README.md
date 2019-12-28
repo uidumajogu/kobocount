@@ -1,26 +1,18 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
 
-## How to use this template
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/driftyco/ionic2-app-base).
+## Kobocount
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/driftyco/ionic2-app-base).
+Kobocount is a complete cloud-based financial solution that computes financial activities for SMEs, MSMEs and individuals.
 
-### With the Ionic CLI:
+This app helps you manage your daily sales and expenses, creates invoices and receipts on the go and generates various reports, transactions, sales, expenses, mini-statement and cash report.
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
+It also has options to create teams with various privileges. With Kobocount you are not in the dark as to your business performance, taxes and income.
 
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
-```
-
-Then, to run it, cd into `myBlank` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
-
+Features include:
+- Authentication (Login and Sign up)
+- Customer management
+- Expense type update
+- Add Sales and Expenses
+- Manage inventory
+- Profile settings
+- Team creation and management
